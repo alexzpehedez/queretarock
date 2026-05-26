@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Producto | QueretaRock
+    </title>
+
+    <!-- ============== FONTS ============== -->
+
+    <link rel="preconnect"
+    href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+    <!-- ============== FONT AWESOME ============== -->
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- ============== ICON ============== -->
+
+    <link rel="icon"
+    type="image/x-icon"
+    href="../assets/img/icons/logo.ico">
+
+    <!-- ============== CSS ============== -->
+
+    <link rel="stylesheet"
+    href="../assets/css/main.css">
+
+    <link rel="stylesheet"
+    href="../assets/css/components/buttons.css">
+
+    <link rel="stylesheet"
+    href="../assets/css/pages/nav.css">
+
+    <link rel="stylesheet"
+    href="../assets/css/pages/cart.css">
+
+    <link rel="stylesheet"
+    href="../assets/css/components/footer.css">
+
+</head>
+
+<body>
+
+    <!-- ============== OVERLAY ============== -->
+
+    <div class="cart-overlay"
+    id="cartOverlay"></div>
+
+    <!-- ============== CART SIDEBAR ============== -->
+
+    <aside class="cart-sidebar"
+    id="cartSidebar">
+
+        <div class="cart-header">
+
+            <h2>
+                Tu Carrito
+            </h2>
+
+            <button id="closeCart"
+            class="close-cart">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <!-- ============== CARRITO DINÁMICO ============== -->
+
+        <div class="cart-content"
+        id="cartContent">
+
+        </div>
+
+        <!-- ============== SUMMARY ============== -->
+
+        <div class="cart-summary">
+
+            <div class="summary-row">
+
+                <span>
+                    Total
+                </span>
+
+                <span id="cartTotal">
+                    $0 MXN
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- ============== CHECKOUT ============== -->
+
+        <div class="checkout-section">
+
+            <button class="checkout-btn">
+                Pagar Pedido
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- ============== HEADER ============== -->
+
+    <header class="header sticky">
+
+        <nav class="nav container">
+
+            <div class="nav__data">
+
+                <a href="../index.html"
+                class="nav__logo">
+
+                    <img class="logo"
+                    src="../assets/img/icons/logo.png"
+                    alt="logo">
+
+                </a>
+
+            </div>
+
+            <!-- ============== NAV ICONS ============== -->
+
+            <div class="nav-icons">
+
+                <i class="fas fa-search"></i>
+
+                <a href="login.html">
+
+                    <i class="fas fa-user"></i>
+
+                </a>
+
+                <button id="cartButton"
+                class="cart-btn">
+
+                    <i class="fas fa-shopping-cart"></i>
+
+                    <span class="cart-count"
+                    id="cartCount">
+                        0
+                    </span>
+
+                </button>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+    <!-- ============== PRODUCT DETAIL ============== -->
+
+    <section class="product-detail">
+
+        <div class="product-image">
+
+            <img id="productImage"
+            alt="Producto">
+
+        </div>
+
+        <div class="product-info-detail">
+
+            <h1 id="productName">
+                Cargando producto...
+            </h1>
+
+            <div class="rating">
+
+                <i class="fas fa-star"></i>
+
+                <i class="fas fa-star"></i>
+
+                <i class="fas fa-star"></i>
+
+                <i class="fas fa-star"></i>
+
+                <i class="fas fa-star-half-alt"></i>
+
+            </div>
+
+            <p class="detail-price"
+            id="productPrice">
+
+                $0 MXN
+
+            </p>
+
+            <p class="product-description"
+            id="productDescription">
+
+                Descripción del producto...
+
+            </p>
+
+            <button id="addToCartBtn">
+
+                Agregar al carrito
+
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- ============== FOOTER ============== -->
+
+    <footer>
+
+        <div class="row">
+
+            <div class="col">
+
+                <img class="logo"
+                src="../assets/img/icons/logo.png"
+                alt="logo">
+
+                <p>
+
+                    QuerétaRock es una tienda dedicada
+                    a la venta de guitarras.
+
+                </p>
+
+            </div>
+
+            <div class="col">
+
+                <h3>
+                    Oficina
+                </h3>
+
+                <p>
+                    Av. Constituyentes Pte. 9
+                </p>
+
+                <p>
+                    Querétaro, Qro.
+                </p>
+
+                <p class="email-id">
+                    queretarock@gmail.com
+                </p>
+
+                <h4>
+                    +52 442 384 1094
+                </h4>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <p class="copyright">
+
+            QuerétaRock © 2026
+
+        </p>
+
+    </footer>
+
+    <!-- ============== JAVASCRIPT ============== -->
+
+<script type="module"
+src="../assets/js/main.js">
+</script>
+
+    <script type="module"
+    src="../assets/js/modules/product-detail.js">
+    </script>
+
+</body>
+
+</html>

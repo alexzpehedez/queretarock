@@ -1,0 +1,601 @@
+[
+  {
+    "name": "Fender Stratocaster Vintera II 70s Stratocaster Surf Green",
+    "brand": "Fender",
+    "model": "Stratocaster",
+    "category": "Eléctrica",
+    "price": 24500,
+    "image": "assets/img/products/catalogo/fender/fender1.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Stratocaster Vintera III Early 60s",
+    "brand": "Fender",
+    "model": "Stratocaster",
+    "category": "Eléctrica",
+    "price": 24500,
+    "image": "assets/img/products/catalogo/fender/fender2.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Stratocaster American Ultra II HSS",
+    "brand": "Fender",
+    "model": "Stratocaster",
+    "category": "Eléctrica",
+    "price": 20000,
+    "image": "assets/img/products/catalogo/fender/fender3.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Stratocaster American Professional II",
+    "brand": "Fender",
+    "model": "Stratocaster",
+    "category": "Eléctrica",
+    "price": 23000,
+    "image": "assets/img/products/catalogo/fender/fender4.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Stratocaster Limited Edition 50th Anniversary Dave Murray",
+    "brand": "Fender",
+    "model": "Stratocaster",
+    "category": "Eléctrica",
+    "price": 30000,
+    "image": "assets/img/products/catalogo/fender/fender5.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Stratocaster Mike McCready",
+    "brand": "Fender",
+    "model": "Stratocaster",
+    "category": "Eléctrica",
+    "price": 17000,
+    "image": "assets/img/products/catalogo/fender/fender6.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Stratocaster American Ultra II para zurdos",
+    "brand": "Fender",
+    "model": "Stratocaster",
+    "category": "Eléctrica",
+    "price": 15000,
+    "image": "assets/img/products/catalogo/fender/fender7.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Stratocaster American Vintage II 1961",
+    "brand": "Fender",
+    "model": "Stratocaster",
+    "category": "Eléctrica",
+    "price": 21000,
+    "image": "assets/img/products/catalogo/fender/fender8.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Stratocaster Player Plus para zurdos",
+    "brand": "Fender",
+    "model": "Stratocaster",
+    "category": "Eléctrica",
+    "price": 19500,
+    "image": "assets/img/products/catalogo/fender/fender9.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Stratocaster American Professional II Dark Night Maple Fingerboard",
+    "brand": "Fender",
+    "model": "Stratocaster",
+    "category": "Eléctrica",
+    "price": 30000,
+    "image": "assets/img/products/catalogo/fender/fender10.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Telecaster Limited Edition x PAC-MAN Player II",
+    "brand": "Fender",
+    "model": "Telecaster",
+    "category": "Eléctrica",
+    "price": 25500,
+    "image": "assets/img/products/catalogo/fender/fender11.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Telecaster Acoustasonic Player",
+    "brand": "Fender",
+    "model": "Telecaster",
+    "category": "Eléctrica",
+    "price": 20000,
+    "image": "assets/img/products/catalogo/fender/fender12.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Telecaster Stories Collection Mike Campbell Red Dog",
+    "brand": "Fender",
+    "model": "Telecaster",
+    "category": "Eléctrica",
+    "price": 22000,
+    "image": "assets/img/products/catalogo/fender/fender13.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Jaguar Kurt Cobain",
+    "brand": "Fender",
+    "model": "Jaguar",
+    "category": "Eléctrica",
+    "price": 23500,
+    "image": "assets/img/products/catalogo/fender/fender14.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Jaguar Limited Edition Affinity Series Metallic Black",
+    "brand": "Fender",
+    "model": "Jaguar",
+    "category": "Eléctrica",
+    "price": 22500,
+    "image": "assets/img/products/catalogo/fender/fender15.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Jazzmaster Jim Root V4",
+    "brand": "Fender",
+    "model": "Jazzmaster",
+    "category": "Eléctrica",
+    "price": 21000,
+    "image": "assets/img/products/catalogo/fender/fender16.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Jazzmaster Limited Edition Vintera II Road Worn 50s",
+    "brand": "Fender",
+    "model": "Jazzmaster",
+    "category": "Eléctrica",
+    "price": 20000,
+    "image": "assets/img/products/catalogo/fender/fender17.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Mustang Limited Edition Squier Sonic HH",
+    "brand": "Fender",
+    "model": "Mustang",
+    "category": "Eléctrica",
+    "price": 18000,
+    "image": "assets/img/products/catalogo/fender/fender18.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Mustang Ben Gibbard",
+    "brand": "Fender",
+    "model": "Mustang",
+    "category": "Eléctrica",
+    "price": 22500,
+    "image": "assets/img/products/catalogo/fender/fender19.png",
+    "stock": 5
+  },
+
+  {
+    "name": "Fender Starcaster Classic Vibe",
+    "brand": "Fender",
+    "model": "Starcaster",
+    "category": "Eléctrica",
+    "price": 15000,
+    "image": "assets/img/products/catalogo/fender/fender20.png",
+    "stock": 5
+  },
+
+{
+  "name": "Gibson Les Paul Supreme",
+  "brand": "Gibson",
+  "model": "Les Paul",
+  "category": "Eléctrica",
+  "price": 60000,
+  "image": "assets/img/products/catalogo/gibson/gib1.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson Les Paul Studio Session",
+  "brand": "Gibson",
+  "model": "Les Paul",
+  "category": "Eléctrica",
+  "price": 40000,
+  "image": "assets/img/products/catalogo/gibson/gib2.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson Les Paul Studio Double Trouble",
+  "brand": "Gibson",
+  "model": "Les Paul",
+  "category": "Eléctrica",
+  "price": 29000,
+  "image": "assets/img/products/catalogo/gibson/gib3.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson Les Paul Axcess Standard Gloss",
+  "brand": "Gibson",
+  "model": "Les Paul",
+  "category": "Eléctrica",
+  "price": 40000,
+  "image": "assets/img/products/catalogo/gibson/gib4.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson Les Paul Custom 1957 Junior Reissue VOS",
+  "brand": "Gibson",
+  "model": "Les Paul",
+  "category": "Eléctrica",
+  "price": 45500,
+  "image": "assets/img/products/catalogo/gibson/gib5.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson Les Paul Custom Axcess Standard VOS",
+  "brand": "Gibson",
+  "model": "Les Paul",
+  "category": "Eléctrica",
+  "price": 38000,
+  "image": "assets/img/products/catalogo/gibson/gib6.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson Les Paul Mark Morton Modern Quilt",
+  "brand": "Gibson",
+  "model": "Les Paul",
+  "category": "Eléctrica",
+  "price": 40000,
+  "image": "assets/img/products/catalogo/gibson/gib7.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson Les Paul Custom LE 1957 Reissue",
+  "brand": "Gibson",
+  "model": "Les Paul",
+  "category": "Eléctrica",
+  "price": 90000,
+  "image": "assets/img/products/catalogo/gibson/gib8.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson Les Paul Standard 60s Exclusive",
+  "brand": "Gibson",
+  "model": "Les Paul",
+  "category": "Eléctrica",
+  "price": 31000,
+  "image": "assets/img/products/catalogo/gibson/gib9.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson Les Paul Custom LE 1954",
+  "brand": "Gibson",
+  "model": "Les Paul",
+  "category": "Eléctrica",
+  "price": 100000,
+  "image": "assets/img/products/catalogo/gibson/gib10.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson Flying V Custom Gloss",
+  "brand": "Gibson",
+  "model": "Flying V",
+  "category": "Eléctrica",
+  "price": 45000,
+  "image": "assets/img/products/catalogo/gibson/gib11.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson Flying V Custom 1958 Korina",
+  "brand": "Gibson",
+  "model": "Flying V",
+  "category": "Eléctrica",
+  "price": 8000,
+  "image": "assets/img/products/catalogo/gibson/gib12.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson Flying V 70s Gold Hardware",
+  "brand": "Gibson",
+  "model": "Flying V",
+  "category": "Eléctrica",
+  "price": 25000,
+  "image": "assets/img/products/catalogo/gibson/gib13.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson Flying V Joe Bonamassa Amos",
+  "brand": "Gibson",
+  "model": "Flying V",
+  "category": "Eléctrica",
+  "price": 50000,
+  "image": "assets/img/products/catalogo/gibson/gib14.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson Flying V Custom 1958 Korina Reissue",
+  "brand": "Gibson",
+  "model": "Flying V",
+  "category": "Eléctrica",
+  "price": 66000,
+  "image": "assets/img/products/catalogo/gibson/gib15.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson SG Standard 61 Faded Vintage",
+  "brand": "Gibson",
+  "model": "SG",
+  "category": "Eléctrica",
+  "price": 30000,
+  "image": "assets/img/products/catalogo/gibson/gib16.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson SG Custom LE 1964",
+  "brand": "Gibson",
+  "model": "SG",
+  "category": "Eléctrica",
+  "price": 50000,
+  "image": "assets/img/products/catalogo/gibson/gib17.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson ES-335 60s",
+  "brand": "Gibson",
+  "model": "ES",
+  "category": "Eléctrica",
+  "price": 60000,
+  "image": "assets/img/products/catalogo/gibson/gib18.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson ES-339",
+  "brand": "Gibson",
+  "model": "ES",
+  "category": "Eléctrica",
+  "price": 50000,
+  "image": "assets/img/products/catalogo/gibson/gib19.png",
+  "stock": 5
+},
+
+{
+  "name": "Gibson Explorer 70s Exclusive",
+  "brand": "Gibson",
+  "model": "Explorer",
+  "category": "Eléctrica",
+  "price": 69000,
+  "image": "assets/img/products/catalogo/gibson/gib20.png",
+  "stock": 5
+},
+
+{
+  "name": "JS Series Dinky JS11",
+  "brand": "Jackson",
+  "model": "Stratocaster",
+  "category": "Eléctrica",
+  "price": 23000,
+  "image": "assets/img/products/catalogo/jackson/jack1.png",
+  "stock": 5
+},
+
+{
+  "name": "JS Series Dinky Arch Top JS22 DKA",
+  "brand": "Jackson",
+  "model": "Stratocaster",
+  "category": "Eléctrica",
+  "price": 22000,
+  "image": "assets/img/products/catalogo/jackson/jack2.png",
+  "stock": 5
+},
+
+{
+  "name": "X Series Dinky DK3XR HSS",
+  "brand": "Jackson",
+  "model": "Stratocaster",
+  "category": "Eléctrica",
+  "price": 25500,
+  "image": "assets/img/products/catalogo/jackson/jack3.png",
+  "stock": 5
+},
+
+{
+  "name": "MJ Series Dinky DKR Alder",
+  "brand": "Jackson",
+  "model": "Stratocaster",
+  "category": "Eléctrica",
+  "price": 27000,
+  "image": "assets/img/products/catalogo/jackson/jack4.png",
+  "stock": 5
+},
+
+{
+  "name": "Pro Plus Dinky MDK HT7 MS",
+  "brand": "Jackson",
+  "model": "Stratocaster",
+  "category": "Eléctrica",
+  "price": 20000,
+  "image": "assets/img/products/catalogo/jackson/jack5.png",
+  "stock": 5
+},
+
+{
+  "name": "X Series Dinky DK1A",
+  "brand": "Jackson",
+  "model": "Stratocaster",
+  "category": "Eléctrica",
+  "price": 26500,
+  "image": "assets/img/products/catalogo/jackson/jack6.png",
+  "stock": 5
+},
+
+{
+  "name": "JS Series Dinky JS20 DKQ 2PT",
+  "brand": "Jackson",
+  "model": "Stratocaster",
+  "category": "Eléctrica",
+  "price": 21000,
+  "image": "assets/img/products/catalogo/jackson/jack7.png",
+  "stock": 5
+},
+
+{
+  "name": "JS Series Dinky JS12",
+  "brand": "Jackson",
+  "model": "Stratocaster",
+  "category": "Eléctrica",
+  "price": 19000,
+  "image": "assets/img/products/catalogo/jackson/jack8.png",
+  "stock": 5
+},
+
+{
+  "name": "X Series Signature Scott Ian KVXT",
+  "brand": "Jackson",
+  "model": "Flying V",
+  "category": "Eléctrica",
+  "price": 29000,
+  "image": "assets/img/products/catalogo/jackson/jack9.png",
+  "stock": 5
+},
+
+{
+  "name": "Pro Series Limited Edition Signature Phil Demmel KV",
+  "brand": "Jackson",
+  "model": "Flying V",
+  "category": "Eléctrica",
+  "price": 28000,
+  "image": "assets/img/products/catalogo/jackson/jack10.png",
+  "stock": 5
+},
+
+{
+  "name": "Pro Series KVTMG",
+  "brand": "Jackson",
+  "model": "Flying V",
+  "category": "Eléctrica",
+  "price": 31000,
+  "image": "assets/img/products/catalogo/jackson/jack11.png",
+  "stock": 5
+},
+
+{
+  "name": "JS32",
+  "brand": "Jackson",
+  "model": "Flying V",
+  "category": "Eléctrica",
+  "price": 29000,
+  "image": "assets/img/products/catalogo/jackson/jack12.png",
+  "stock": 5
+},
+
+{
+  "name": "X Series KVXMG",
+  "brand": "Jackson",
+  "model": "Flying V",
+  "category": "Eléctrica",
+  "price": 20000,
+  "image": "assets/img/products/catalogo/jackson/jack13.png",
+  "stock": 5
+},
+
+{
+  "name": "USA Signature Corey Beaulieu KV6",
+  "brand": "Jackson",
+  "model": "Flying V",
+  "category": "Eléctrica",
+  "price": 33000,
+  "image": "assets/img/products/catalogo/jackson/jack14.png",
+  "stock": 5
+},
+
+{
+  "name": "Pro Series Signature Corey Beaulieu KV6Q",
+  "brand": "Jackson",
+  "model": "Flying V",
+  "category": "Eléctrica",
+  "price": 28500,
+  "image": "assets/img/products/catalogo/jackson/jack15.png",
+  "stock": 5
+},
+
+{
+  "name": "X Series Signature Scott Ian",
+  "brand": "Jackson",
+  "model": "Flying V",
+  "category": "Eléctrica",
+  "price": 30500,
+  "image": "assets/img/products/catalogo/jackson/jack16.png",
+  "stock": 5
+},
+
+{
+  "name": "JS Series Kelly JS32",
+  "brand": "Jackson",
+  "model": "Kelly",
+  "category": "Eléctrica",
+  "price": 23500,
+  "image": "assets/img/products/catalogo/jackson/jack17.png",
+  "stock": 5
+},
+
+{
+  "name": "Concept Series Limited Edition Kelly KE Signature Scott Ian",
+  "brand": "Jackson",
+  "model": "Flying V",
+  "category": "Eléctrica",
+  "price": 31000,
+  "image": "assets/img/products/catalogo/jackson/jack18.png",
+  "stock": 5
+},
+
+{
+  "name": "Pro Series Signature Dave Davidson WR7 MAH MPL",
+  "brand": "Jackson",
+  "model": "Warrior",
+  "category": "Eléctrica",
+  "price": 36000,
+  "image": "assets/img/products/catalogo/jackson/jack19.png",
+  "stock": 5
+},
+
+{
+  "name": "Pro Series Signature Dave Davidson WR7",
+  "brand": "Jackson",
+  "model": "Warrior",
+  "category": "Eléctrica",
+  "price": 34500,
+  "image": "assets/img/products/catalogo/jackson/jack20.png",
+  "stock": 5
+}
+]

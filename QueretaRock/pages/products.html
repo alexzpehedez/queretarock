@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos | QueretaRock</title>
+
+    <!-- ============== FUENTES ============== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ============== ICONOS ============== -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- ============== ICON ============== -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/icons/logo.ico"> 
+
+
+    <!-- ============== CSS ============== -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/pages/nav.css">
+    <link rel="stylesheet" href="../assets/css/pages/cart.css">
+</head>
+
+<body>
+    <!-- ============== OVERLAY ==============-->
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <!-- ============== CARD SIDEBAR ============== -->
+    <aside class="cart-sidebar" id="cartSidebar">
+
+        <div class="cart-header">
+
+            <h2>Tu Carrito</h2>
+
+            <button id="closeCart" class="close-cart">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <div class="cart-content">
+
+            <!-- ============== PRODCUT 1 ============== -->
+            <div class="cart-item">
+
+                <img src="../assets/img/products/gibsonVintageFlyingV.webp"
+                    alt="Flying V">
+
+                <div class="item-details">
+
+                    <h3>
+                        Gibson Flying V 70s with Gold Hardware,
+                        Vintage Sunburst, Exclusive
+                    </h3>
+
+                    <div class="item-price">$2,599</div>
+
+                    <div class="quantity-controls">
+
+                        <button>-</button>
+
+                        <span>1</span>
+
+                        <button>+</button>
+
+                        <button class="delete-btn">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ============== PRODCUT 2 ============== -->
+            <div class="cart-item">
+
+                <img src="../assets/img/products/gibsonExplorer.webp"
+                    alt="Explorer">
+
+                <div class="item-details">
+
+                    <h3>
+                        Gibson Explorer 70s,
+                        Vintage Sunburst, Exclusive
+                    </h3>
+
+                    <div class="item-price">$2,599</div>
+
+                    <div class="quantity-controls">
+
+                        <button>-</button>
+
+                        <span>2</span>
+
+                        <button>+</button>
+
+                        <button class="delete-btn">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ============== SUMMARY ============== -->
+        <div class="cart-summary">
+
+            <div class="summary-row">
+                <span>Total parcial</span>
+                <span>$7,797</span>
+            </div>
+
+            <p class="shipping-note">
+                Envío calculado al finalizar la compra
+            </p>
+
+            <div class="summary-row total">
+                <span>Total</span>
+                <span>$7,797</span>
+            </div>
+
+        </div>
+
+        <!-- ============== CHECKOUT ============== -->
+        <div class="checkout-section">
+
+            <button class="checkout-btn">
+                Pagar Pedido
+            </button>   
+
+        </div>
+
+    </aside>
+    <header class="header sticky">
+        <nav class="nav container">
+            <div class="nav__data">
+                <a href="../index.html" class="nav__logo">
+                    <img class="logo" src="../assets/img/icons/logo.png" alt="logo">
+                </a>
+            </div>
+
+            <!-- ============== NAV MENU ============== -->
+            <div class="nav__menu show-menu" id="nav-menu">
+                <ul class="nav__list">
+
+                     <!-- ============== DROPDOWN 1 ============== -->
+                    <li class="dropdown__item">
+                        <div class="nav__link">
+                            Acústicas
+                        </div>
+
+                        <ul class="dropdown__menu">
+                            
+                            <!-- ============== DROPDOWN SUBMENU 1.1 ============== -->
+                            <li class="dropdown__subitem">
+                                <div class="dropdown__link">
+                                    Marcas 
+                                </div>
+
+                                <ul class="dropdown__submenu">
+                                    <li>
+                                        <a href="pages/products.html" class="dropdown__sublink">
+                                        Fender
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="guitarsBrand.html" class="dropdown__sublink">
+                                            Epiphone
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="guitarsBrand.html" class="dropdown__sublink">
+                                            Yamaha
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- ============== DROPDOWN SUBMENU 1.2 ============== -->
+                            <li class="dropdown__subitem">
+                                <div class="dropdown__link">
+                                    Modelo
+                                </div>
+
+                                <ul class="dropdown__submenu">
+                                    <li>
+                                        <a href="#" class="dropdown__sublink">
+                                            00 (Grand Concert)
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="dropdown__sublink">
+                                            000 (Auditorium)
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="dropdown__sublink">
+                                            Grand Performance
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- ============== DROPDOWN 2 ============== -->
+                    <li class="dropdown__item">
+                        <div class="nav__link">
+                            Eléctricas
+                        </div>
+
+                        <ul class="dropdown__menu">
+                            
+                            <!-- ============== DROPDOWN SUBMENU 2.1 ============== -->
+                            <li class="dropdown__subitem">
+                                <div class="dropdown__link">
+                                    Marcas
+                                </div>
+
+                                <ul class="dropdown__submenu">
+                                    <li>
+                                        <a href="guitarsBrand.html" class="dropdown__sublink">
+                                            Fender
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="guitarsBrand.html" class="dropdown__sublink">
+                                            Gibson
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="guitarsBrand.html" class="dropdown__sublink">
+                                            Jackson
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- ============== DROPDOWN SUBMENU 2.2 ============== -->
+                            <li class="dropdown__subitem">
+                                <div class="dropdown__link">
+                                    Modelo
+                                </div>
+
+                                <ul class="dropdown__submenu">
+                                    <li>
+                                        <a href="#" class="dropdown__sublink">
+                                           Flying V
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="dropdown__sublink">
+                                           Les Paul
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="dropdown__sublink">
+                                            Stratocaster
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- ============== DROPDOWN 3 ============== -->
+                    <li class="dropdown__item">
+                        <div class="nav__link">
+                            Electroacústicas 
+                        </div>
+
+                        <ul class="dropdown__menu">
+                            
+                            <!-- ============== DROPDOWN SUBMENU 3.1 ============== -->
+                            <li class="dropdown__subitem">
+                                <div class="dropdown__link">
+                                  Marcas
+                                </div>
+
+                                <ul class="dropdown__submenu">
+                                    <li>
+                                        <a href="guitarsBrand.html" class="dropdown__sublink">
+                                             Ibanez
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="guitarsBrand.html" class="dropdown__sublink">
+                                            Martin
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="guitarsBrand.html" class="dropdown__sublink">
+                                            Yamaha
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- ============== DROPDOWN SUBMENU 3.2 ============== -->
+                            <li class="dropdown__subitem">
+                                <div class="dropdown__link">
+                                    Modelo
+                                </div>
+
+                                <ul class="dropdown__submenu">
+                                    <li>
+                                        <a href="#" class="dropdown__sublink">
+                                            Dreadnought
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="dropdown__sublink">
+                                            Jumbo
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="dropdown__sublink">
+                                            Parlour
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- ============== NAV ICONS ============== -->
+            <div class="nav-icons">
+                <i class="fas fa-search"></i>
+                <a href="#">
+                    <i class="fas fa-user"></i>
+                </a>
+                <button id="cartButton" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">3</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <!-- ============== CATÁLOGO ============== -->
+
+    <section class="products-page">
+
+        <!-- ============== FILTROS ============== -->
+
+        <aside class="filters">
+
+            <h2>Filtros</h2>
+
+            <!-- MARCAS -->
+
+            <div class="filter-group">
+
+                <h3>Marca</h3>
+
+                <label>
+                    <input type="checkbox">
+                    Fender
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Gibson
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Ibanez
+                </label>
+
+            </div>
+
+            <!-- ==============  PRECIO ============== -->
+
+            <div class="filter-group">
+
+                <h3>Precio</h3>
+
+                <input type="range">
+
+            </div>
+
+        </aside>
+
+        <!-- ============== PRODUCTOS ============== -->
+
+        <div class="products-content">
+
+            <div class="products-topbar">
+
+                <div class="search-box">
+
+                    <i class="fas fa-search"></i>
+
+                    <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Buscar guitarras...">
+
+                </div>
+
+                <select id="sortSelect">
+
+                <option value="">
+                    Ordenar por
+                </option>
+
+                <option value="low">
+                    Menor precio
+                </option>
+
+                <option value="high">
+                    Mayor precio
+                </option>
+
+            </select>
+
+            </div>
+
+            <h2 class="section-title">
+                Catálogo
+            </h2>
+
+            <div class="products-grid"></div>
+
+        </div>
+
+    </section>
+
+    <div class="toast">
+
+    Producto agregado al carrito
+
+    </div>
+
+    <!-- ============== JavaScript ============== -->
+<script type="module"
+src="../assets/js/main.js">
+</script>
+    <script src="../assets/js/modules/cart2.js"> </script>
+    <script type="module"
+    src="../assets/js/modules/products.js"></script>
+
+</body>
+
+</html>

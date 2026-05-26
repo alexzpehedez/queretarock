@@ -1,0 +1,301 @@
+.categories,
+.featured-products{
+
+    padding:6rem 8%;
+}
+
+.categories-container{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:2rem;
+}
+
+.category-card{
+    
+    position:relative;
+    overflow:hidden;
+    height:350px;
+
+    background:var(--surface);
+
+    border-radius:25px;
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    transition:all .5s ease;
+
+    cursor:pointer;
+
+    text-decoration:none;
+
+    color:white;
+}
+
+.category-card:hover{
+
+    transform:scale(1.03);
+}
+
+.category-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(0,0,0,0.45);
+}
+
+.category-card h3{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:3rem;
+}
+
+.products-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:2rem;
+}
+
+.product-card{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    animation:fadeReveal 1s ease forwards;
+        
+    position:relative;
+    background:linear-gradient(
+        145deg,
+        #1b1b1b,
+        #121212
+    );
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,0.4);
+    background:var(--surface);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    transition:var(--transition);
+}
+
+.product-card:nth-child(2){
+
+    animation-delay:.2s;
+}
+
+.product-card:nth-child(3){
+
+    animation-delay:.4s;
+}
+
+@keyframes fadeReveal{
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.product-card img{
+
+    height:300px;
+
+    object-fit:cover;
+
+    transition:all .5s ease;
+}
+
+.product-card:hover img{
+
+    transform:scale(1.08);
+}
+
+.product-info{
+
+    padding:1.5rem;
+}
+
+.product-info h3{
+
+    font-size:2rem;
+}
+
+.product-info p{
+
+    margin:1rem 0;
+}
+
+.product-info button{
+
+    width:100%;
+
+    padding:1rem;
+
+    background:var(--primary);
+
+    color:white;
+
+    border-radius:10px;
+}
+
+.acoustic{
+
+    background-image:
+    url('../../img/categories/acoustic.jpg');
+}
+
+.electric{
+
+    background-image:
+    url('../../img/categories/electric.jpg');
+}
+
+.electro{
+
+    background-image:
+    url('../../img/categories/electro.jpg');
+}
+
+.cart-sidebar{
+
+    position:fixed;
+
+    top:0;
+    right:-400px;
+
+    width:400px;
+    height:100vh;
+
+    background:#151515;
+
+    z-index:2000;
+
+    transition:all .4s ease;
+
+    padding:2rem;
+}
+
+.cart-sidebar.active{
+
+    right:0;
+}
+
+.cart-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:2rem;
+}
+
+.close-cart{
+
+    cursor:pointer;
+    font-size:1.5rem;
+}
+
+.overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,0.6);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:all .4s ease;
+
+    z-index:1500;
+}
+
+.overlay.active{
+
+    opacity:1;
+    visibility:visible;
+}
+
+.product-badge{
+
+    position:absolute;
+
+    top:15px;
+    left:15px;
+
+    background:crimson;
+
+    padding:.5rem 1rem;
+
+    border-radius:20px;
+
+    font-size:.8rem;
+
+    font-weight:600;
+
+    z-index:10;
+}
+
+.rating{
+
+    margin:.7rem 0;
+
+    color:gold;
+}
+
+.price{
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+    margin-bottom:1rem;
+}
+
+.cart-item{
+
+    display:flex;
+
+    gap:1rem;
+
+    margin-bottom:1.5rem;
+
+    background:#222;
+
+    padding:1rem;
+
+    border-radius:15px;
+}
+
+.cart-item img{
+
+    width:80px;
+
+    border-radius:10px;
+}
+
+.cart-item h4{
+
+    margin-bottom:.5rem;
+}

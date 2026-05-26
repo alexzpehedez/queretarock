@@ -1,0 +1,80 @@
+button{
+
+    border:none;
+    outline:none;
+
+    cursor:pointer;
+
+    transition:var(--transition);
+}
+
+.hero-btn{
+
+    padding:1rem 2rem;
+
+    background:var(--primary);
+
+    color:white;
+
+    border-radius:50px;
+
+    font-size:1rem;
+    font-weight:600;
+}
+
+.hero-btn:hover{
+
+    transform:translateY(-5px);
+
+    background:#e63946;
+}
+
+.product-info button{
+
+    background:linear-gradient(
+        45deg,
+        var(--primary),
+        #e63946
+    );
+
+    font-weight:600;
+}
+
+.product-info button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 10px 20px rgba(198,40,40,0.4);
+}
+
+.product-buttons{
+
+    display:flex;
+
+    gap:1rem;
+}
+
+.view-btn{
+
+    flex:1;
+
+    text-align:center;
+
+    background:#222;
+
+    padding:1rem;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    color:white;
+
+    transition:.3s;
+}
+
+.view-btn:hover{
+
+    background:#333;
+}

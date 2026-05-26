@@ -1,0 +1,167 @@
+.profile-page{
+    width:100%;
+    max-width:1200px;
+
+    margin: auto;
+    padding:40px;
+
+    background:#070707;
+    color:#fff;
+}
+
+/* TITLE */
+
+.section-title{
+    font-size:2rem;
+    font-weight:700;
+    margin-bottom:25px;
+}
+
+/* COVER */
+
+.cover-container{
+    position:relative;
+    margin-bottom:120px;
+}
+
+.cover-photo{
+    width:100%;
+    height:260px;
+
+    border-radius:22px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #00191a 0%,
+        #108c91 40%,
+        #7d00d4 75%,
+        #002a7a 100%
+    );
+
+    position:relative;
+}
+
+/* ACTIONS */
+
+.cover-actions{
+    position:absolute;
+    right:15px;
+    bottom:15px;
+
+    display:flex;
+    gap:10px;
+
+    background:rgba(0,0,0,.35);
+
+    padding:8px;
+
+    border-radius:30px;
+}
+
+.cover-actions button{
+    width:34px;
+    height:34px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#45136d;
+    color:white;
+
+    cursor:pointer;
+}
+
+/* PROFILE */
+
+.profile-avatar{
+    position:absolute;
+
+    left:50%;
+    bottom:-55px;
+
+    transform:translateX(-50%);
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:#efefef;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:6px solid #070707;
+}
+
+.profile-avatar i{
+    font-size:5rem;
+    color:#1f1f1f;
+}
+
+/* MEMBER */
+
+.member-section{
+    margin-bottom:60px;
+}
+
+.member-section h3{
+    font-size:1.8rem;
+    margin-bottom:10px;
+}
+
+.member-section span{
+    font-size:1.1rem;
+    color:#d9d9d9;
+}
+
+/* ABOUT */
+
+.about-section h2{
+    margin-bottom:25px;
+    font-size:2rem;
+}
+
+.profile-form{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    margin-bottom:10px;
+    font-size:.95rem;
+    font-weight:600;
+}
+
+.form-group input{
+    height:55px;
+
+    border:none;
+    outline:none;
+
+    border-radius:10px;
+
+    background:#151515;
+
+    color:white;
+
+    padding:0 18px;
+}
+
+.form-group input::placeholder{
+    color:#707070;
+}
