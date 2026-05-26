@@ -1,296 +1,168 @@
-const cartButton =
-document.getElementById('cartButton');
+/* ================= CART MODULE ================= */
 
-const cartSidebar =
-document.getElementById('cartSidebar');
-
-const cartOverlay =
-document.getElementById('cartOverlay');
-
-const closeCart =
-document.getElementById('closeCart');
-
-const cartContent =
-document.getElementById('cartContent');
-
-const cartCount =
-document.getElementById('cartCount');
-
-const cartTotal =
-document.getElementById('cartTotal');
+const cartButton  = document.getElementById('cartButton');
+const cartSidebar = document.getElementById('cartSidebar');
+const cartOverlay = document.getElementById('cartOverlay');
+const closeCart   = document.getElementById('closeCart');
+const cartContent = document.getElementById('cartContent');
+const cartCount   = document.getElementById('cartCount');
+const cartTotal   = document.getElementById('cartTotal');
 
 /* ================= SAFE CART ================= */
 
-function getCart(){
-
-    const raw =
-    localStorage.getItem('cart');
-
-    if(
-        !raw ||
-        raw === 'undefined' ||
-        raw === 'null'
-    ){
-
-        return [];
-    }
-
-    try{
-
-        return JSON.parse(raw);
-
-    }catch(error){
-
-        console.log(
-            'Carrito corrupto'
+function getCart() {
+    const raw = localStorage.getItem('cart');
+    if (!raw || raw === 'undefined' || raw === 'null') return [];
+    try {
+        const parsed = JSON.parse(raw);
+        /* Filtra productos inválidos: deben tener id, nombre y precio válido */
+        return parsed.filter(p =>
+            p &&
+            p.id !== undefined &&
+            p.name &&
+            Number(p.price) > 0
         );
-
-        localStorage.removeItem(
-            'cart'
-        );
-
+    } catch {
+        localStorage.removeItem('cart');
         return [];
     }
 }
 
-/* ================= OPEN CART ================= */
-
-if(cartButton){
-
-    cartButton.addEventListener(
-        'click',
-        () => {
-
-            if(cartSidebar){
-
-                cartSidebar.classList.add(
-                    'active'
-                );
-            }
-
-            if(cartOverlay){
-
-                cartOverlay.classList.add(
-                    'active'
-                );
-            }
-
-            renderCart();
-        }
-    );
-}
-
-/* ================= CLOSE CART ================= */
-
-if(closeCart){
-
-    closeCart.addEventListener(
-        'click',
-        closeCartSidebar
-    );
-}
-
-if(cartOverlay){
-
-    cartOverlay.addEventListener(
-        'click',
-        closeCartSidebar
-    );
-}
-
-function closeCartSidebar(){
-
-    if(cartSidebar){
-
-        cartSidebar.classList.remove(
-            'active'
-        );
-    }
-
-    if(cartOverlay){
-
-        cartOverlay.classList.remove(
-            'active'
-        );
-    }
-}
-
-/* ================= SAVE CART ================= */
-
-function saveCart(cart){
-
-    localStorage.setItem(
-        'cart',
-        JSON.stringify(cart)
-    );
-
+function saveCart(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
     renderCart();
+    updateCartCount();
 }
 
-/* ================= RENDER CART ================= */
+/* ================= COUNT ================= */
 
-function renderCart(){
+function updateCartCount() {
+    if (!cartCount) return;
+    const total = getCart().reduce((sum, p) => sum + (Number(p.quantity) || 1), 0);
+    cartCount.textContent = total;
+}
 
-    if(!cartContent) return;
+/* ================= OPEN / CLOSE ================= */
 
-    const cart =
-    getCart();
+if (cartButton) {
+    cartButton.addEventListener('click', () => {
+        cartSidebar?.classList.add('active');
+        cartOverlay?.classList.add('active');
+        renderCart();
+    });
+}
 
+if (closeCart)   closeCart.addEventListener('click', closeCartSidebar);
+if (cartOverlay) cartOverlay.addEventListener('click', closeCartSidebar);
+
+function closeCartSidebar() {
+    cartSidebar?.classList.remove('active');
+    cartOverlay?.classList.remove('active');
+}
+
+/* ================= RENDER ================= */
+
+function renderCart() {
+    if (!cartContent) return;
+
+    const cart = getCart();
     cartContent.innerHTML = '';
 
-    let total = 0;
+    let total      = 0;
     let totalItems = 0;
 
-    if(cart.length === 0){
-
+    if (cart.length === 0) {
         cartContent.innerHTML = `
-
-            <p class="empty-cart">
+            <p style="padding:2rem;text-align:center;color:#888;">
                 Tu carrito está vacío
-            </p>
-
-        `;
-
-        if(cartTotal){
-
-            cartTotal.textContent =
-            '$0 MXN';
-        }
-
-        if(cartCount){
-
-            cartCount.textContent =
-            '0';
-        }
-
+            </p>`;
+        if (cartTotal) cartTotal.textContent = '$0 MXN';
+        if (cartCount) cartCount.textContent = '0';
         return;
     }
 
     cart.forEach(product => {
+        const price    = Number(product.price)    || 0;
+        const quantity = Number(product.quantity) || 1;
 
-        const price =
-        Number(product.price) || 0;
+        total      += price * quantity;
+        totalItems += quantity;
 
-        const quantity =
-        Number(product.quantity) || 1;
-
-        total +=
-        price * quantity;
-
-        totalItems +=
-        quantity;
-
-        const item =
-        document.createElement('div');
-
-        item.classList.add(
-            'cart-item'
-        );
-
+        const item = document.createElement('div');
+        item.classList.add('cart-item');
         item.innerHTML = `
-
-            <img
-            src="${product.image}"
-            alt="${product.name}">
-
+            <img src="${product.image}" alt="${product.name}">
             <div class="item-details">
-
-                <h3>
-                    ${product.name}
-                </h3>
-
-                <div class="item-price">
-
-                    $${price.toLocaleString()} MXN
-
-                </div>
-
+                <h3>${product.name}</h3>
+                <div class="item-price">$${price.toLocaleString()} MXN</div>
                 <div class="quantity-controls">
-
-                    <span>
-                        Cantidad:
-                        ${quantity}
-                    </span>
-
-                    <button
-                    class="delete-btn"
-                    data-id="${product.id}">
-
+                    <button class="qty-btn minus" data-id="${product.id}">-</button>
+                    <span>${quantity}</span>
+                    <button class="qty-btn plus" data-id="${product.id}">+</button>
+                    <button class="delete-btn" data-id="${product.id}">
                         <i class="fa-regular fa-trash-can"></i>
-
                     </button>
-
                 </div>
-
-            </div>
-        `;
+            </div>`;
 
         cartContent.appendChild(item);
     });
 
-    /* ================= TOTAL ================= */
+    if (cartTotal) cartTotal.textContent = `$${total.toLocaleString()} MXN`;
+    if (cartCount) cartCount.textContent = totalItems;
 
-    if(cartTotal){
+    cartContent.querySelectorAll('.qty-btn.minus').forEach(btn =>
+        btn.addEventListener('click', () => changeQuantity(btn.dataset.id, -1))
+    );
+    cartContent.querySelectorAll('.qty-btn.plus').forEach(btn =>
+        btn.addEventListener('click', () => changeQuantity(btn.dataset.id, 1))
+    );
+    cartContent.querySelectorAll('.delete-btn').forEach(btn =>
+        btn.addEventListener('click', () => removeFromCart(btn.dataset.id))
+    );
+}
 
-        cartTotal.textContent =
-        `$${total.toLocaleString()} MXN`;
-    }
+/* ================= QUANTITY ================= */
 
-    /* ================= COUNT ================= */
-
-    if(cartCount){
-
-        cartCount.textContent =
-        totalItems;
-    }
-
-    activateDeleteButtons();
+function changeQuantity(id, delta) {
+    let cart = getCart().map(p => {
+        if (p.id == id) p.quantity = (Number(p.quantity) || 1) + delta;
+        return p;
+    }).filter(p => p.quantity > 0);
+    saveCart(cart);
 }
 
 /* ================= DELETE ================= */
 
-function activateDeleteButtons(){
+function removeFromCart(id) {
+    saveCart(getCart().filter(p => p.id != id));
+}
 
-    const buttons =
-    document.querySelectorAll(
-        '.delete-btn'
-    );
+/* ================= STORAGE EVENT ================= */
 
-    buttons.forEach(button => {
+window.addEventListener('storage', () => {
+    renderCart();
+    updateCartCount();
+});
 
-        button.addEventListener(
-            'click',
-            () => {
+/* ================= SANITIZE ON LOAD ================= */
+/* Elimina cualquier producto hardcodeado del viejo data/products.js */
 
-                const id =
-                button.dataset.id;
-
-                removeFromCart(id);
-            }
+(function sanitizeCart() {
+    const raw = localStorage.getItem('cart');
+    if (!raw) return;
+    try {
+        const parsed = JSON.parse(raw);
+        const clean  = parsed.filter(p =>
+            p && p.id !== undefined && p.name && Number(p.price) > 0
         );
-    });
-}
+        if (clean.length !== parsed.length) {
+            localStorage.setItem('cart', JSON.stringify(clean));
+        }
+    } catch {
+        localStorage.removeItem('cart');
+    }
+})();
 
-function removeFromCart(id){
-
-    let cart =
-    getCart();
-
-    cart =
-    cart.filter(product =>
-        product.id != id
-    );
-
-    saveCart(cart);
-}
-
-/* ================= STORAGE UPDATE ================= */
-
-window.addEventListener(
-    'storage',
-    renderCart
-);
-
-/* ================= INIT ================= */
-
+updateCartCount();
 renderCart();

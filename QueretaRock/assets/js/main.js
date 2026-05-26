@@ -6,191 +6,86 @@ import './modules/auth.js';
 
 /* ================= BASE URL ================= */
 
-const BASE_URL =
-'/Proyecto_Final/QueretaRock/';
+const BASE_URL = '/Proyecto_Final/QueretaRock/';
 
 /* ================= NAVBAR SCROLL ================= */
 
-const navbar =
-document.querySelector('.header');
+const navbar = document.querySelector('.header');
 
 if (navbar) {
-
-    window.addEventListener(
-        'scroll',
-        () => {
-
-            if (window.scrollY > 50) {
-
-                navbar.classList.add(
-                    'scrolled'
-                );
-
-            } else {
-
-                navbar.classList.remove(
-                    'scrolled'
-                );
-            }
-        }
-    );
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
 }
 
 /* ================= LOADER ================= */
 
-window.addEventListener(
-    'load',
-    () => {
-
-        const loader =
-        document.querySelector('.loader');
-
-        if (loader) {
-
-            loader.classList.add(
-                'fade-out'
-            );
-        }
-    }
-);
+window.addEventListener('load', () => {
+    const loader = document.querySelector('.loader');
+    if (loader) loader.classList.add('fade-out');
+});
 
 /* ================= SAFE USER ================= */
 
 function getUsuario() {
-
-    const raw =
-    localStorage.getItem('usuario');
-
-    if (
-        !raw ||
-        raw === 'undefined' ||
-        raw === 'null'
-    ) {
-
-        return null;
-    }
-
+    const raw = localStorage.getItem('usuario');
+    if (!raw || raw === 'undefined' || raw === 'null') return null;
     try {
-
         return JSON.parse(raw);
-
-    } catch (error) {
-
-        console.log(
-            'Usuario corrupto'
-        );
-
-        localStorage.removeItem(
-            'usuario'
-        );
-
+    } catch {
+        localStorage.removeItem('usuario');
         return null;
     }
 }
 
-const usuario =
-getUsuario();
+const usuario = getUsuario();
 
 /* ================= USER LINK ================= */
 
-document.addEventListener(
-    'DOMContentLoaded',
-    () => {
+document.addEventListener('DOMContentLoaded', () => {
+    const userLink = document.getElementById('userLink');
+    if (!userLink) return;
 
-        const userLink =
-        document.getElementById(
-            'userLink'
-        );
+    userLink.href = usuario
+        ? BASE_URL + 'pages/user.html'
+        : BASE_URL + 'pages/login.html';
+});
 
-        if (!userLink) return;
+/* ================= USER PAGE — populate form ================= */
 
-        if (usuario) {
+document.addEventListener('DOMContentLoaded', () => {
+    const nombreEl   = document.getElementById('nombre');
+    const apellidoEl = document.getElementById('apellido');
+    const correoEl   = document.getElementById('correo');
 
-            userLink.href =
-            BASE_URL +
-            'pages/user.html';
-
-        } else {
-
-            userLink.href =
-            BASE_URL +
-            'pages/login.html';
-        }
+    /* Si estamos en user.html y no hay sesión → redirigir */
+    if (
+        window.location.pathname.includes('user.html') &&
+        !usuario
+    ) {
+        window.location.href = BASE_URL + 'pages/login.html';
+        return;
     }
-);
 
-/* ================= USER PAGE ================= */
+    if (!usuario) return;
 
-document.addEventListener(
-    'DOMContentLoaded',
-    () => {
-
-        if (!usuario) return;
-
-        const nombre =
-        document.getElementById(
-            'nombre'
-        );
-
-        const apellido =
-        document.getElementById(
-            'apellido'
-        );
-
-        const correo =
-        document.getElementById(
-            'correo'
-        );
-
-        if (nombre) {
-
-            nombre.value =
-            usuario.nombre || '';
-        }
-
-        if (apellido) {
-
-            apellido.value =
-            usuario.apellido || '';
-        }
-
-        if (correo) {
-
-            correo.value =
-            usuario.email || '';
-        }
-    }
-);
+    if (nombreEl)   nombreEl.value   = usuario.nombre   || '';
+    if (apellidoEl) apellidoEl.value = usuario.apellido || '';
+    if (correoEl)   correoEl.value   = usuario.email    || '';
+});
 
 /* ================= LOGOUT ================= */
 
 function cerrarSesion() {
-
-    localStorage.removeItem(
-        'usuario'
-    );
-
-    window.location.href =
-    BASE_URL +
-    'pages/login.html';
+    localStorage.removeItem('usuario');
+    window.location.href = BASE_URL + 'pages/login.html';
 }
 
-window.cerrarSesion =
-cerrarSesion;
+window.cerrarSesion = cerrarSesion;
 
 /* ================= CLEAN INVALID STORAGE ================= */
 
-const invalidUser =
-localStorage.getItem(
-    'usuario'
-);
-
-if (
-    invalidUser === 'undefined' ||
-    invalidUser === 'null'
-) {
-
-    localStorage.removeItem(
-        'usuario'
-    );
+const _raw = localStorage.getItem('usuario');
+if (_raw === 'undefined' || _raw === 'null') {
+    localStorage.removeItem('usuario');
 }

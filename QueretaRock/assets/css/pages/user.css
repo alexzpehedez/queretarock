@@ -165,3 +165,39 @@
 .form-group input::placeholder{
     color:#707070;
 }
+
+/* ── FORM ACTIONS ── */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.save-btn, .logout-btn {
+    padding: .85rem 2rem;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    transition: .3s;
+}
+
+.save-btn {
+    background: #c1121f;
+    color: white;
+}
+
+.save-btn:hover { background: #e63946; transform: translateY(-2px); }
+
+.logout-btn {
+    background: #222;
+    color: white;
+    border: 1px solid #444;
+}
+
+.logout-btn:hover { background: #333; transform: translateY(-2px); }

@@ -1,101 +1,74 @@
-const BASE_URL =
-"/Proyecto_Final/QueretaRock/";
+const BASE_URL = '/Proyecto_Final/QueretaRock/';
 
-const params =
-new URLSearchParams(window.location.search);
+const params     = new URLSearchParams(window.location.search);
+const productId  = params.get('id');
 
-const productId =
-params.get('id');
+const productImage       = document.querySelector('#productImage');
+const productName        = document.querySelector('#productName');
+const productPrice       = document.querySelector('#productPrice');
+const productDescription = document.querySelector('#productDescription');
+const addToCartBtn       = document.querySelector('#addToCartBtn');
+const toast              = document.querySelector('.toast');
 
-const productImage =
-document.querySelector('#productImage');
+/* ================= LOAD PRODUCT ================= */
 
-const productName =
-document.querySelector('#productName');
+async function loadProduct() {
+    if (!productId) {
+        if (productName) productName.textContent = 'Producto no encontrado';
+        return;
+    }
 
-const productPrice =
-document.querySelector('#productPrice');
-
-const productDescription =
-document.querySelector('#productDescription');
-
-const addToCartBtn =
-document.querySelector('#addToCartBtn');
-
-async function loadProduct(){
-
-    try{
-
+    try {
         const response = await fetch(
             `${BASE_URL}backend/products/getProduct.php?id=${productId}`
         );
+        const product = await response.json();
 
-        const product =
-        await response.json();
-
-        if(product){
-
-            productImage.src =
-            BASE_URL + product.image;
-
-            productName.textContent =
-            product.name;
-
-            productPrice.textContent =
-            `$${Number(product.price)
-            .toLocaleString()} MXN`;
-
-            productDescription.textContent =
-            product.description;
-
-            addToCartBtn.addEventListener(
-                'click',
-                () => addToCart(product)
-            );
+        if (!product || !product.id) {
+            if (productName) productName.textContent = 'Producto no encontrado';
+            return;
         }
 
-    }catch(error){
+        if (productImage) {
+            productImage.src = BASE_URL + product.image;
+            productImage.alt = product.name;
+        }
+        if (productName)        productName.textContent  = product.name;
+        if (productPrice)       productPrice.textContent = `$${Number(product.price).toLocaleString()} MXN`;
+        if (productDescription) productDescription.textContent = product.description || 'Guitarra de alta calidad.';
 
-        console.log(error);
+        if (addToCartBtn) {
+            addToCartBtn.addEventListener('click', () => addToCart(product));
+        }
+
+    } catch (error) {
+        console.error('Error cargando producto:', error);
     }
 }
 
-function addToCart(product){
+/* ================= ADD TO CART ================= */
 
-    let cart =
-    JSON.parse(
-        localStorage.getItem("cart")
-    ) || [];
+function addToCart(product) {
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
 
-    const existing =
-    cart.find(item =>
-        item.id == product.id
-    );
-
-    if(existing){
-
-        existing.quantity++;
-
-    }else{
-
-        cart.push({
-            ...product,
-            quantity:1
-        });
+    const existing = cart.find(item => item.id == product.id);
+    if (existing) {
+        existing.quantity = (existing.quantity || 1) + 1;
+    } else {
+        cart.push({ ...product, quantity: 1 });
     }
 
-localStorage.setItem(
-    "cart",
-    JSON.stringify(cart)
-);
-
-window.dispatchEvent(
-    new Event('storage')
-);
-
-alert("Producto agregado al carrito");
-
-    
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.dispatchEvent(new Event('storage'));
+    showToast();
 }
+
+function showToast() {
+    if (!toast) return;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+/* ================= INIT ================= */
 
 loadProduct();

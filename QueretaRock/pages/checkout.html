@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | QueretaRock</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../assets/img/icons/logo.ico">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/pages/checkout.css">
+</head>
+<body>
+
+    <header class="checkout-header">
+        <a href="../index.html">
+            <img src="../assets/img/icons/logo.png" alt="logo" style="width:90px;">
+        </a>
+        <h1>Finalizar Compra</h1>
+    </header>
+
+    <main class="checkout-page">
+
+        <!-- ── FORMULARIO ── -->
+        <section class="checkout-form-section">
+            <h2>Datos de envío</h2>
+            <form id="checkoutForm" class="checkout-form">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre *</label>
+                        <input type="text" id="chkNombre" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Apellido *</label>
+                        <input type="text" id="chkApellido" placeholder="Tu apellido" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Correo electrónico *</label>
+                    <input type="email" id="chkEmail" placeholder="correo@ejemplo.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" id="chkTelefono" placeholder="+52 442 000 0000">
+                </div>
+
+                <div class="form-group">
+                    <label>Dirección *</label>
+                    <input type="text" id="chkDireccion" placeholder="Calle, número, colonia" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Ciudad *</label>
+                        <input type="text" id="chkCiudad" placeholder="Ciudad" required>
+                    </div>
+                    <div class="form-group">
+                        <label>C.P. *</label>
+                        <input type="text" id="chkCP" placeholder="76000" required>
+                    </div>
+                </div>
+
+                <h2 style="margin-top:2rem;">Método de pago</h2>
+
+                <div class="payment-methods">
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="card" checked>
+                        <i class="fas fa-credit-card"></i> Tarjeta de crédito/débito
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="transfer">
+                        <i class="fas fa-university"></i> Transferencia bancaria
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="oxxo">
+                        <i class="fas fa-store"></i> Pago en OXXO
+                    </label>
+                </div>
+
+                <div id="cardFields">
+                    <div class="form-group">
+                        <label>Número de tarjeta</label>
+                        <input type="text" id="chkCard" placeholder="0000 0000 0000 0000" maxlength="19">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Vencimiento</label>
+                            <input type="text" id="chkExp" placeholder="MM/AA" maxlength="5">
+                        </div>
+                        <div class="form-group">
+                            <label>CVV</label>
+                            <input type="text" id="chkCVV" placeholder="123" maxlength="4">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="place-order-btn">
+                    <i class="fas fa-lock"></i> Confirmar pedido
+                </button>
+
+            </form>
+        </section>
+
+        <!-- ── RESUMEN ── -->
+        <aside class="checkout-summary">
+            <h2>Resumen del pedido</h2>
+            <div id="summaryItems"></div>
+            <div class="summary-divider"></div>
+            <div class="summary-total-row">
+                <span>Total</span>
+                <span id="summaryTotal">$0 MXN</span>
+            </div>
+            <p style="color:#888;font-size:.85rem;margin-top:.5rem;">
+                Envío gratis en pedidos mayores a $10,000 MXN
+            </p>
+        </aside>
+
+    </main>
+
+    <!-- ── MODAL ÉXITO ── -->
+    <div class="success-modal" id="successModal">
+        <div class="success-card">
+            <i class="fas fa-check-circle"></i>
+            <h2>¡Pedido confirmado!</h2>
+            <p>Recibirás un correo con los detalles de tu compra.</p>
+            <a href="../index.html" class="back-home-btn">Volver al inicio</a>
+        </div>
+    </div>
+
+    <script src="../assets/js/modules/checkout.js"></script>
+</body>
+</html>
