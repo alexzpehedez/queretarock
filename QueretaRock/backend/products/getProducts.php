@@ -1,7 +1,7 @@
 <?php
 /**
- * getProducts.php — Lista de productos con filtros opcionales
- * Parámetros GET: ?category=&brand=&model=&search=
+ * getProducts.php — productos con filtros opcionales
+ * FIX: normaliza categorías con/sin tilde + ruta robusta a database.php
  */
 
 error_reporting(0);
@@ -17,22 +17,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-require_once __DIR__ . '/../config/database.php';
+// Localizar database.php de forma robusta
+// getProducts.php está en backend/products/  → config está en backend/config/
+$possiblePaths = [
+    __DIR__ . '/../config/database.php',
+    dirname(__DIR__) . '/config/database.php',
+];
 
-// Filtros opcionales
-$category = isset($_GET['category']) ? trim($_GET['category']) : '';
-$brand    = isset($_GET['brand'])    ? trim($_GET['brand'])    : '';
-$model    = isset($_GET['model'])    ? trim($_GET['model'])    : '';
-$search   = isset($_GET['search'])  ? trim($_GET['search'])   : '';
+$dbPath = null;
+foreach ($possiblePaths as $p) {
+    if (file_exists($p)) { $dbPath = $p; break; }
+}
+
+if (!$dbPath) {
+    echo json_encode(['error' => 'No se encontró database.php', 'dir' => __DIR__]);
+    exit;
+}
+
+require_once $dbPath;
+
+// Normaliza variantes de categoría (con/sin tilde) al valor canónico en BD
+function normalizarCategoria($cat) {
+    $lower = strtolower(trim($cat));
+    $map = [
+        'electrica'       => 'Eléctrica',
+        'eléctrica'       => 'Eléctrica',
+        'acustica'        => 'Acústica',
+        'acústica'        => 'Acústica',
+        'electroacustica' => 'Electroacústica',
+        'electroacústica' => 'Electroacústica',
+    ];
+    return $map[$lower] ?? null;
+}
+
+$category = trim($_GET['category'] ?? '');
+$brand    = trim($_GET['brand']    ?? '');
+$model    = trim($_GET['model']    ?? '');
+$search   = trim($_GET['search']   ?? '');
 
 $conditions = [];
 $params     = [];
 $types      = '';
 
 if ($category !== '') {
-    $conditions[] = 'category LIKE ?';
-    $params[]     = '%' . $category . '%';
-    $types       .= 's';
+    $canonico = normalizarCategoria($category);
+    if ($canonico) {
+        $conditions[] = 'category = ?';
+        $params[]     = $canonico;
+        $types       .= 's';
+    } else {
+        $conditions[] = 'category LIKE ?';
+        $params[]     = '%' . $category . '%';
+        $types       .= 's';
+    }
 }
 
 if ($brand !== '') {
@@ -61,7 +98,6 @@ if (!empty($conditions)) {
 $sql .= ' ORDER BY brand ASC, name ASC';
 
 $stmt = $conn->prepare($sql);
-
 if (!$stmt) {
     echo json_encode(['error' => 'Error preparando consulta: ' . $conn->error]);
     exit;
@@ -77,14 +113,14 @@ $result = $stmt->get_result();
 $products = [];
 while ($row = $result->fetch_assoc()) {
     $products[] = [
-        'id'       => (int) $row['id'],
+        'id'       => (int)   $row['id'],
         'name'     => $row['name'],
         'brand'    => $row['brand'],
         'model'    => $row['model'],
         'category' => $row['category'],
         'price'    => (float) $row['price'],
         'image'    => $row['image'],
-        'stock'    => (int) $row['stock']
+        'stock'    => (int)   $row['stock']
     ];
 }
 

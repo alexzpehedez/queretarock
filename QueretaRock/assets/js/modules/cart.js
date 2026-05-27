@@ -2,15 +2,14 @@
 
 const BASE_URL = '/Proyecto_Final/QueretaRock/';
 
-const cartButton  = document.getElementById('cartButton');
-const cartSidebar = document.getElementById('cartSidebar');
-// El overlay usa clase "cart-overlay" en index.html y "cart-overlay" en el resto
-const cartOverlay = document.getElementById('cartOverlay') || document.querySelector('.cart-overlay');
+const cartButton   = document.getElementById('cartButton');
+const cartSidebar  = document.getElementById('cartSidebar');
+const cartOverlay  = document.getElementById('cartOverlay') || document.querySelector('.cart-overlay');
 const closeCartBtn = document.getElementById('closeCart');
-const cartContent = document.getElementById('cartContent');
-const cartCount   = document.getElementById('cartCount');
-const cartTotal   = document.getElementById('cartTotal');
-const checkoutBtn = document.getElementById('checkoutBtn') || document.querySelector('.checkout-btn');
+const cartContent  = document.getElementById('cartContent');
+const cartCount    = document.getElementById('cartCount');
+const cartTotal    = document.getElementById('cartTotal');
+const checkoutBtn  = document.getElementById('checkoutBtn') || document.querySelector('.checkout-btn');
 
 /* ================= SAFE CART ================= */
 
@@ -65,16 +64,10 @@ function closeCartSidebar() {
 if (checkoutBtn) {
     checkoutBtn.addEventListener('click', () => {
         const cart = getCart();
-        if (cart.length === 0) {
-            alert('Tu carrito está vacío');
-            return;
-        }
-        // Redirige relativo a la página actual
+        if (cart.length === 0) { alert('Tu carrito está vacío'); return; }
         const isRoot = !window.location.pathname.includes('/pages/');
-        const checkoutPath = isRoot
-            ? BASE_URL + 'pages/checkout.html'
-            : 'checkout.html';
-        window.location.href = checkoutPath;
+        const path   = isRoot ? BASE_URL + 'pages/checkout.html' : 'checkout.html';
+        window.location.href = path;
     });
 }
 
@@ -82,18 +75,12 @@ if (checkoutBtn) {
 
 function renderCart() {
     if (!cartContent) return;
-
     const cart = getCart();
     cartContent.innerHTML = '';
-
-    let total      = 0;
-    let totalItems = 0;
+    let total = 0, totalItems = 0;
 
     if (cart.length === 0) {
-        cartContent.innerHTML = `
-            <p style="padding:2rem;text-align:center;color:#888;">
-                Tu carrito está vacío
-            </p>`;
+        cartContent.innerHTML = `<p style="padding:2rem;text-align:center;color:#888;">Tu carrito está vacío</p>`;
         if (cartTotal) cartTotal.textContent = '$0 MXN';
         if (cartCount) cartCount.textContent = '0';
         return;
@@ -102,11 +89,9 @@ function renderCart() {
     cart.forEach(product => {
         const price    = Number(product.price)    || 0;
         const quantity = Number(product.quantity) || 1;
-        // Las imágenes en BD guardan ruta relativa; se antepone BASE_URL
         const imageURL = product.image
             ? (product.image.startsWith('http') ? product.image : BASE_URL + product.image)
             : '';
-
         total      += price * quantity;
         totalItems += quantity;
 
@@ -120,13 +105,12 @@ function renderCart() {
                 <div class="quantity-controls">
                     <button class="qty-btn minus" data-id="${product.id}">-</button>
                     <span>${quantity}</span>
-                    <button class="qty-btn plus" data-id="${product.id}">+</button>
-                    <button class="delete-btn" data-id="${product.id}">
+                    <button class="qty-btn plus"  data-id="${product.id}">+</button>
+                    <button class="delete-btn"    data-id="${product.id}">
                         <i class="fa-regular fa-trash-can"></i>
                     </button>
                 </div>
             </div>`;
-
         cartContent.appendChild(item);
     });
 
@@ -134,58 +118,53 @@ function renderCart() {
     if (cartCount) cartCount.textContent = totalItems;
 
     cartContent.querySelectorAll('.qty-btn.minus').forEach(btn =>
-        btn.addEventListener('click', () => changeQuantity(btn.dataset.id, -1))
-    );
+        btn.addEventListener('click', () => changeQuantity(btn.dataset.id, -1)));
     cartContent.querySelectorAll('.qty-btn.plus').forEach(btn =>
-        btn.addEventListener('click', () => changeQuantity(btn.dataset.id, 1))
-    );
+        btn.addEventListener('click', () => changeQuantity(btn.dataset.id, 1)));
     cartContent.querySelectorAll('.delete-btn').forEach(btn =>
-        btn.addEventListener('click', () => removeFromCart(btn.dataset.id))
-    );
+        btn.addEventListener('click', () => removeFromCart(btn.dataset.id)));
 }
 
-/* ================= QUANTITY ================= */
+/* ================= QUANTITY / DELETE ================= */
 
 function changeQuantity(id, delta) {
-    let cart = getCart().map(p => {
-        if (String(p.id) === String(id)) {
-            p.quantity = (Number(p.quantity) || 1) + delta;
-        }
-        return p;
-    }).filter(p => p.quantity > 0);
+    const cart = getCart()
+        .map(p => { if (String(p.id) === String(id)) p.quantity = (Number(p.quantity) || 1) + delta; return p; })
+        .filter(p => p.quantity > 0);
     saveCart(cart);
 }
-
-/* ================= DELETE ================= */
 
 function removeFromCart(id) {
     saveCart(getCart().filter(p => String(p.id) !== String(id)));
 }
 
-/* ================= STORAGE EVENT ================= */
-
-window.addEventListener('storage', () => {
-    renderCart();
-    updateCartCount();
+/* ================= CROSS-TAB SYNC ================= */
+// Solo sincroniza cambios hechos desde OTRA pestaña
+window.addEventListener('storage', (e) => {
+    if (e.key === 'cart') {
+        renderCart();
+        updateCartCount();
+    }
 });
 
-/* ================= SANITIZE ON LOAD ================= */
+/* ================= EXPONER REFRESH PARA products.js ================= */
+// products.js llama a window._cartRefresh() tras agregar al carrito
+// así evitamos depender del evento 'storage' que no se dispara en la misma pestaña
+window._cartRefresh = () => {
+    renderCart();
+    updateCartCount();
+};
 
+/* ================= SANITIZE ON LOAD ================= */
 (function sanitizeCart() {
     const raw = localStorage.getItem('cart');
     if (!raw) return;
     try {
         const parsed = JSON.parse(raw);
         if (!Array.isArray(parsed)) { localStorage.removeItem('cart'); return; }
-        const clean = parsed.filter(p =>
-            p && p.id !== undefined && p.name && Number(p.price) > 0
-        );
-        if (clean.length !== parsed.length) {
-            localStorage.setItem('cart', JSON.stringify(clean));
-        }
-    } catch {
-        localStorage.removeItem('cart');
-    }
+        const clean = parsed.filter(p => p && p.id !== undefined && p.name && Number(p.price) > 0);
+        if (clean.length !== parsed.length) localStorage.setItem('cart', JSON.stringify(clean));
+    } catch { localStorage.removeItem('cart'); }
 })();
 
 updateCartCount();

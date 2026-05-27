@@ -36,13 +36,14 @@ if (usuario) {
 
 /* ── Renderiza resumen del pedido ── */
 function renderSummary() {
-    const cart        = getCart();
+    const cart         = getCart();
     const summaryItems = document.getElementById('summaryItems');
     const summaryTotal = document.getElementById('summaryTotal');
     if (!summaryItems) return;
 
     if (cart.length === 0) {
         summaryItems.innerHTML = '<p style="color:#888;text-align:center;padding:1rem;">Tu carrito está vacío.</p>';
+        if (summaryTotal) summaryTotal.textContent = '$0 MXN';
         return;
     }
 
@@ -98,7 +99,6 @@ document.getElementById('checkoutForm')?.addEventListener('submit', async (e) =>
     const btn = e.target.querySelector('.place-order-btn');
     if (btn) { btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...'; btn.disabled = true; }
 
-    // Datos del formulario
     const payment = document.querySelector('input[name="payment"]:checked')?.value || 'card';
     const payload = {
         usuario_id:     usuario?.id    || null,
@@ -117,6 +117,7 @@ document.getElementById('checkoutForm')?.addEventListener('submit', async (e) =>
     await new Promise(r => setTimeout(r, 1500));
 
     try {
+        // FIX: ruta correcta → backend/orders/createOrder.php
         const res  = await fetch(BASE_URL + 'backend/orders/createOrder.php', {
             method:  'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -128,16 +129,19 @@ document.getElementById('checkoutForm')?.addEventListener('submit', async (e) =>
             console.warn('Respuesta no-JSON de createOrder:', text.substring(0, 200));
         }
         if (data && !data.success) {
-            console.warn('Orden no guardada:', data.message);
+            console.warn('Orden no guardada en BD:', data.message);
+            // No bloqueamos el flujo — el usuario ya "pagó"
         }
     } catch (err) {
         console.warn('Error al guardar orden (no bloquea flujo):', err);
     }
 
-    // Limpia carrito y muestra éxito independientemente del backend
+    // Limpiar carrito y mostrar modal de éxito
     localStorage.removeItem('cart');
     const modal = document.getElementById('successModal');
     if (modal) modal.classList.add('show');
+
+    if (btn) { btn.innerHTML = '<i class="fas fa-lock"></i> Confirmar pedido'; btn.disabled = false; }
 });
 
 /* ── Init ── */

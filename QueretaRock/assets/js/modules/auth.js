@@ -5,11 +5,6 @@ const BASE_URL = '/Proyecto_Final/QueretaRock/';
 const loginForm    = document.getElementById('loginForm');
 const registerForm = document.getElementById('registerForm');
 
-// Si no hay ningún formulario de auth en la página, no hace nada
-if (!loginForm && !registerForm) {
-    // Módulo cargado pero sin formularios — salida silenciosa
-}
-
 /* ================= HELPER ================= */
 
 function getUsuario() {
@@ -23,7 +18,7 @@ function getUsuario() {
     }
 }
 
-/* ── Si ya hay sesión activa y estamos en login/register, redirigir ── */
+/* ── Si ya hay sesión activa y estamos en login/register, redirigir al inicio ── */
 if ((loginForm || registerForm) && getUsuario()) {
     window.location.href = BASE_URL + 'index.html';
 }
@@ -61,9 +56,9 @@ if (loginForm) {
             } else {
                 alert(data.message || 'Correo o contraseña incorrectos');
             }
-        } catch (error) {
-            console.error('Error login:', error);
-            alert('Error de conexión con el servidor. Verifica que esté activo.');
+        } catch (err) {
+            console.error('Error login:', err);
+            alert('Error de conexión con el servidor. Verifica que XAMPP/WAMP esté activo.');
         } finally {
             if (btn) { btn.disabled = false; btn.textContent = 'Iniciar sesión'; }
         }
@@ -77,11 +72,12 @@ if (registerForm) {
         e.preventDefault();
 
         const username = document.getElementById('registerUsername')?.value.trim() || '';
+        const apellido = document.getElementById('registerApellido')?.value.trim() || ''; // FIX: nuevo campo
         const email    = document.getElementById('registerEmail')?.value.trim()    || '';
         const password = document.getElementById('registerPassword')?.value         || '';
 
         if (!username || !email || !password) {
-            alert('Por favor llena todos los campos');
+            alert('Por favor llena los campos obligatorios');
             return;
         }
 
@@ -97,7 +93,7 @@ if (registerForm) {
             const response = await fetch(BASE_URL + 'backend/auth/register.php', {
                 method:  'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body:    JSON.stringify({ username, email, password })
+                body:    JSON.stringify({ username, apellido, email, password }) // FIX: incluye apellido
             });
 
             if (!response.ok) throw new Error('HTTP ' + response.status);
@@ -109,9 +105,9 @@ if (registerForm) {
             } else {
                 alert(data.message || 'Error al registrar');
             }
-        } catch (error) {
-            console.error('Error register:', error);
-            alert('Error de conexión con el servidor. Verifica que esté activo.');
+        } catch (err) {
+            console.error('Error register:', err);
+            alert('Error de conexión con el servidor. Verifica que XAMPP/WAMP esté activo.');
         } finally {
             if (btn) { btn.disabled = false; btn.textContent = 'Crear cuenta'; }
         }

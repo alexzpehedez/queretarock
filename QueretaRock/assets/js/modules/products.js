@@ -9,7 +9,6 @@ const sortSelect   = document.getElementById('sortSelect');
 const priceRange   = document.getElementById('priceRange');
 const priceLabel   = document.getElementById('priceLabel');
 const toast        = document.getElementById('toast') || document.querySelector('.toast');
-const filtersTitle = document.getElementById('filtersActiveTitle'); // opcional
 
 let allProducts = [];
 
@@ -18,9 +17,9 @@ let allProducts = [];
 function getURLFilters() {
     const p = new URLSearchParams(window.location.search);
     return {
-        category: p.get('category') || '',   // Ej: "Electrica"
-        brand:    p.get('brand')    || '',   // Ej: "Fender"
-        model:    p.get('model')    || ''    // Ej: "Stratocaster"
+        category: p.get('category') || '',
+        brand:    p.get('brand')    || '',
+        model:    p.get('model')    || ''
     };
 }
 
@@ -31,17 +30,14 @@ async function loadProducts() {
 
     const { category, brand, model } = getURLFilters();
 
-    // Muestra tag de filtro activo si hay uno
     updateActiveFilterBadge(category, brand, model);
 
-    // Pre-marca los checkboxes de marca si viene en la URL
     if (brand) {
         document.querySelectorAll('.filters input[type=checkbox]').forEach(cb => {
             if (cb.value.toLowerCase() === brand.toLowerCase()) cb.checked = true;
         });
     }
 
-    // Construye URL del backend con filtros
     const params = new URLSearchParams();
     if (category) params.set('category', category);
     if (brand)    params.set('brand',    brand);
@@ -50,7 +46,7 @@ async function loadProducts() {
     const url = BASE_URL + 'backend/products/getProducts.php?' + params.toString();
 
     try {
-        const res = await fetch(url);
+        const res  = await fetch(url);
         const text = await res.text();
         try {
             allProducts = JSON.parse(text);
@@ -72,22 +68,16 @@ function showGridError(msg) {
     }
 }
 
-/* ================= BADGE DE FILTRO ACTIVO ================= */
+/* ================= BADGE FILTRO ACTIVO ================= */
 
 function updateActiveFilterBadge(category, brand, model) {
     const container = document.getElementById('activeFiltersBar');
     if (!container) return;
-
     const tags = [];
     if (category) tags.push(`Categoría: <strong>${category}</strong>`);
     if (brand)    tags.push(`Marca: <strong>${brand}</strong>`);
     if (model)    tags.push(`Modelo: <strong>${model}</strong>`);
-
-    if (tags.length === 0) {
-        container.style.display = 'none';
-        return;
-    }
-
+    if (tags.length === 0) { container.style.display = 'none'; return; }
     container.style.display = 'flex';
     container.innerHTML = `
         <span class="filter-badge-label">Filtros activos:</span>
@@ -97,14 +87,13 @@ function updateActiveFilterBadge(category, brand, model) {
         </a>`;
 }
 
-/* ================= FILTERS LOCALES (precio, búsqueda, orden) ================= */
+/* ================= FILTERS LOCALES ================= */
 
 function applyFilters() {
     const query    = searchInput?.value.toLowerCase().trim() || '';
     const sortVal  = sortSelect?.value || '';
     const maxPrice = Number(priceRange?.value) || 100000;
 
-    // Marcas de los checkboxes (filtro adicional local sobre lo que ya llegó de BD)
     const checkedBrands = [...document.querySelectorAll('.filters input[type=checkbox]:checked')]
         .map(cb => cb.value.toLowerCase());
 
@@ -137,7 +126,7 @@ function renderProducts(products) {
     }
 
     products.forEach((product, i) => {
-        const card     = document.createElement('div');
+        const card = document.createElement('div');
         card.classList.add('product-card');
         card.style.animationDelay = `${i * 0.04}s`;
 
@@ -174,8 +163,11 @@ function renderProducts(products) {
 
 function addToCart(product) {
     let cart = [];
-    try { cart = JSON.parse(localStorage.getItem('cart') || '[]'); } catch { cart = []; }
-    if (!Array.isArray(cart)) cart = [];
+    try {
+        const raw = localStorage.getItem('cart');
+        cart = (raw && raw !== 'undefined') ? JSON.parse(raw) : [];
+        if (!Array.isArray(cart)) cart = [];
+    } catch { cart = []; }
 
     const existing = cart.find(i => String(i.id) === String(product.id));
     if (existing) {
@@ -185,7 +177,13 @@ function addToCart(product) {
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    window.dispatchEvent(new Event('storage'));
+
+    // FIX: llamar directamente a las funciones de cart.js en lugar de
+    // disparar un evento que puede no llegar al listener correcto
+    if (typeof window._cartRefresh === 'function') {
+        window._cartRefresh();
+    }
+
     showToast();
 }
 
