@@ -1,0 +1,199 @@
+/* ============== ADMIN ICON ==============*/
+.adminIcon {
+    width: 40px;
+    margin-top: 0.1px;
+}
+/* ============== PAGE ============== */
+
+.admin-profile-page{
+    min-height:100vh;
+    background:#070707;
+    color:#fff;
+    padding:40px 50px;
+}
+
+/*==============  TITLE ============== */
+
+.page-title{
+    text-align:center;
+    font-size:3rem;
+    font-weight:800;
+    letter-spacing:2px;
+    margin-bottom:50px;
+}
+
+/* ============== MAIN LAYOUT ============== */
+
+.profile-layout{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:60px;
+}
+
+/* ============== SIDEBAR ============== */
+
+.profile-sidebar{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.avatar-container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    margin-bottom:40px;
+}
+
+.profile-avatar{
+    width:180px;
+    max-width:100%;
+    object-fit:contain;
+}
+
+/* ============== BUTTONS ============== */
+
+.logout-btn,
+.upload-btn {
+    border:none;
+    cursor:pointer;
+    border-radius:30px;
+
+    background:#d71920;
+    color:#fff;
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.logout-btn{
+    width:140px;
+    height:45px;
+}
+
+.upload-btn{
+    width:140px;
+    height:45px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+
+.logout-btn:hover,
+.upload-btn:hover {
+    opacity:.9;
+}
+
+/* ============== CONTENT ============== */
+
+.profile-content{
+    display:flex;
+    flex-direction:column;
+    gap:50px;
+}
+
+/* ============== SECTIONS ============== */
+
+.info-section h2,
+.search-section h2{
+    margin-bottom:25px;
+    font-size:2rem;
+    font-weight:800;
+}
+
+/* ============== FORM ============== */
+
+.guitar-form{
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.upload-row{
+    align-items:end;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    margin-bottom:10px;
+    font-size:.9rem;
+}
+
+.form-group input{
+    height:52px;
+
+    background:#141414;
+    color:#fff;
+
+    border:none;
+    outline:none;
+
+    border-radius:8px;
+
+    padding:0 15px;
+}
+
+.form-group input::placeholder{
+    color:#777;
+}
+
+/* ============== SEARCH ==============*/
+
+.search-box{
+    height:55px;
+
+    background:#101010;
+
+    border-radius:8px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 20px;
+}
+
+.search-box i{
+    margin-right:15px;
+    color:#999;
+}
+
+.search-box input{
+    flex:1;
+
+    border:none;
+    outline:none;
+
+    background:transparent;
+    color:#fff;
+}
+
+.search-box input::placeholder{
+    color:#777;
+}
+
+/* ============== TABLE AREA ============== */
+
+.records-container{
+    min-height:220px;
+    border-radius:10px;
+}
+
+/* ============== ACTIONS ============== */
+
+.actions-row{
+    display:flex;
+    justify-content:flex-end;
+}

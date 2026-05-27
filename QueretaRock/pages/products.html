@@ -4,23 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos | QueretaRock</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="../assets/img/icons/logo.ico">
-
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/pages/nav.css">
     <link rel="stylesheet" href="../assets/css/pages/cart.css">
+
+    <!-- Estilos de filtros activos (inline para no crear otro archivo) -->
+    <style>
+        #activeFiltersBar {
+            display: none;
+            align-items: center;
+            gap: .7rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            padding: .9rem 1.2rem;
+            background: #151515;
+            border-radius: 12px;
+            border: 1px solid #222;
+        }
+        .filter-badge-label { font-size: .85rem; color: #888; }
+        .filter-badge {
+            font-size: .85rem;
+            padding: .3rem .8rem;
+            background: rgba(193,18,31,.15);
+            border: 1px solid rgba(193,18,31,.3);
+            border-radius: 20px;
+            color: #e63946;
+        }
+        .filter-clear {
+            margin-left: auto;
+            font-size: .82rem;
+            color: #888;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: .3rem;
+            transition: color .2s;
+        }
+        .filter-clear:hover { color: #fff; }
+    </style>
 </head>
 <body>
 
-    <!-- ============== OVERLAY ============== -->
+    <!-- ============== OVERLAY & CART ============== -->
     <div class="cart-overlay" id="cartOverlay"></div>
-
-    <!-- ============== CART SIDEBAR ============== -->
     <aside class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
             <h2>Tu Carrito</h2>
@@ -28,9 +59,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
-
         <div class="cart-content" id="cartContent"></div>
-
         <div class="cart-summary">
             <div class="summary-row total">
                 <span>Total</span>
@@ -38,9 +67,8 @@
             </div>
             <p class="shipping-note">Envío calculado al finalizar la compra</p>
         </div>
-
         <div class="checkout-section">
-            <button class="checkout-btn">Pagar Pedido</button>
+            <button class="checkout-btn" id="checkoutBtn">Pagar Pedido</button>
         </div>
     </aside>
 
@@ -55,53 +83,82 @@
 
             <div class="nav__menu show-menu" id="nav-menu">
                 <ul class="nav__list">
+
+                    <!-- ACÚSTICAS -->
                     <li class="dropdown__item">
                         <div class="nav__link">Acústicas</div>
                         <ul class="dropdown__menu">
                             <li class="dropdown__subitem">
                                 <div class="dropdown__link">Marcas</div>
                                 <ul class="dropdown__submenu">
-                                    <li><a href="products.html" class="dropdown__sublink">Fender</a></li>
-                                    <li><a href="products.html" class="dropdown__sublink">Epiphone</a></li>
-                                    <li><a href="products.html" class="dropdown__sublink">Yamaha</a></li>
+                                    <li><a href="products.html?category=Acustica&brand=Fender"   class="dropdown__sublink">Fender</a></li>
+                                    <li><a href="products.html?category=Acustica&brand=Epiphone" class="dropdown__sublink">Epiphone</a></li>
+                                    <li><a href="products.html?category=Acustica&brand=Yamaha"   class="dropdown__sublink">Yamaha</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown__subitem">
+                                <div class="dropdown__link">Modelo</div>
+                                <ul class="dropdown__submenu">
+                                    <li><a href="products.html?category=Acustica&model=Grand+Concert"     class="dropdown__sublink">00 (Grand Concert)</a></li>
+                                    <li><a href="products.html?category=Acustica&model=Auditorium"        class="dropdown__sublink">000 (Auditorium)</a></li>
+                                    <li><a href="products.html?category=Acustica&model=Grand+Performance" class="dropdown__sublink">Grand Performance</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
+
+                    <!-- ELÉCTRICAS -->
                     <li class="dropdown__item">
                         <div class="nav__link">Eléctricas</div>
                         <ul class="dropdown__menu">
                             <li class="dropdown__subitem">
                                 <div class="dropdown__link">Marcas</div>
                                 <ul class="dropdown__submenu">
-                                    <li><a href="products.html" class="dropdown__sublink">Fender</a></li>
-                                    <li><a href="products.html" class="dropdown__sublink">Gibson</a></li>
-                                    <li><a href="products.html" class="dropdown__sublink">Jackson</a></li>
+                                    <li><a href="products.html?category=Electrica&brand=Fender"  class="dropdown__sublink">Fender</a></li>
+                                    <li><a href="products.html?category=Electrica&brand=Gibson"  class="dropdown__sublink">Gibson</a></li>
+                                    <li><a href="products.html?category=Electrica&brand=Jackson" class="dropdown__sublink">Jackson</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown__subitem">
+                                <div class="dropdown__link">Modelo</div>
+                                <ul class="dropdown__submenu">
+                                    <li><a href="products.html?category=Electrica&model=Flying+V"     class="dropdown__sublink">Flying V</a></li>
+                                    <li><a href="products.html?category=Electrica&model=Les+Paul"     class="dropdown__sublink">Les Paul</a></li>
+                                    <li><a href="products.html?category=Electrica&model=Stratocaster" class="dropdown__sublink">Stratocaster</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
+
+                    <!-- ELECTROACÚSTICAS -->
                     <li class="dropdown__item">
                         <div class="nav__link">Electroacústicas</div>
                         <ul class="dropdown__menu">
                             <li class="dropdown__subitem">
                                 <div class="dropdown__link">Marcas</div>
                                 <ul class="dropdown__submenu">
-                                    <li><a href="products.html" class="dropdown__sublink">Ibanez</a></li>
-                                    <li><a href="products.html" class="dropdown__sublink">Martin</a></li>
-                                    <li><a href="products.html" class="dropdown__sublink">Yamaha</a></li>
+                                    <li><a href="products.html?category=Electroacustica&brand=Ibanez" class="dropdown__sublink">Ibanez</a></li>
+                                    <li><a href="products.html?category=Electroacustica&brand=Martin" class="dropdown__sublink">Martin</a></li>
+                                    <li><a href="products.html?category=Electroacustica&brand=Yamaha" class="dropdown__sublink">Yamaha</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown__subitem">
+                                <div class="dropdown__link">Modelo</div>
+                                <ul class="dropdown__submenu">
+                                    <li><a href="products.html?category=Electroacustica&model=Dreadnought" class="dropdown__sublink">Dreadnought</a></li>
+                                    <li><a href="products.html?category=Electroacustica&model=Jumbo"       class="dropdown__sublink">Jumbo</a></li>
+                                    <li><a href="products.html?category=Electroacustica&model=Parlour"     class="dropdown__sublink">Parlour</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
+
                 </ul>
             </div>
 
             <div class="nav-icons">
                 <i class="fas fa-search"></i>
-                <a href="user.html" id="userLink">
-                    <i class="fas fa-user"></i>
-                </a>
+                <a href="user.html" id="userLink"><i class="fas fa-user"></i></a>
                 <button id="cartButton" class="cart-btn">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count" id="cartCount">0</span>
@@ -113,14 +170,19 @@
     <!-- ============== CATÁLOGO ============== -->
     <section class="products-page">
 
+        <!-- FILTROS -->
         <aside class="filters">
             <h2>Filtros</h2>
 
             <div class="filter-group">
                 <h3>Marca</h3>
-                <label><input type="checkbox" value="Fender"> Fender</label>
-                <label><input type="checkbox" value="Gibson"> Gibson</label>
+                <label><input type="checkbox" value="Fender">  Fender</label>
+                <label><input type="checkbox" value="Gibson">  Gibson</label>
                 <label><input type="checkbox" value="Jackson"> Jackson</label>
+                <label><input type="checkbox" value="Ibanez">  Ibanez</label>
+                <label><input type="checkbox" value="Martin">  Martin</label>
+                <label><input type="checkbox" value="Yamaha">  Yamaha</label>
+                <label><input type="checkbox" value="Epiphone">Epiphone</label>
             </div>
 
             <div class="filter-group">
@@ -130,6 +192,7 @@
             </div>
         </aside>
 
+        <!-- CONTENIDO -->
         <div class="products-content">
             <div class="products-topbar">
                 <div class="search-box">
@@ -143,6 +206,9 @@
                 </select>
             </div>
 
+            <!-- Barra de filtros activos (URL params) -->
+            <div id="activeFiltersBar"></div>
+
             <h2 class="section-title">Catálogo</h2>
             <div class="products-grid" id="productsGrid"></div>
         </div>
@@ -150,9 +216,10 @@
     </section>
 
     <!-- Toast -->
-    <div class="toast" id="toast">Producto agregado al carrito</div>
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i> Producto agregado al carrito
+    </div>
 
-    <!-- ============== JAVASCRIPT ============== -->
     <script type="module" src="../assets/js/main.js"></script>
 
 </body>

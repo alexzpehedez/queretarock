@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | QueretaRock</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../assets/img/icons/logo.ico">
+
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/pages/nav.css">
+    <link rel="stylesheet" href="../assets/css/pages/cart.css">
+    <link rel="stylesheet" href="../assets/css/pages/admin.css">
+</head>
+<body>
+
+    <!-- ============== HEADER ============== -->
+    <header class="header sticky">
+        <nav class="nav container">
+            <div class="nav__data">
+                <a href="../index.html" class="nav__logo">
+                    <img class="logo" src="../assets/img/icons/logo.png" alt="logo">
+                </a>
+            </div>
+
+            <div class="nav__menu show-menu" id="nav-menu">
+                <ul class="nav__list">
+                   <li class="dropdown__item">
+                        <div class="nav__link"><a href="products.html">Eléctricas</a></div>
+                        <ul class="dropdown__menu">
+                            <li class="dropdown__subitem">
+                                <div class="dropdown__link">Marcas</div>
+                                <ul class="dropdown__submenu">
+                                    <li><a href="#" class="dropdown__sublink">Fender</a></li>
+                                    <li><a href="productsGibson.html" class="dropdown__sublink">Gibson</a></li>
+                                    <li><a href="productsJackson.html" class="dropdown__sublink">Jackson</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown__subitem">
+                                <div class="dropdown__link">Modelo</div>
+                                <ul class="dropdown__submenu">
+                                    <li><a href="productsFlying.html" class="dropdown__sublink">Flying V</a></li>
+                                    <li><a href="productsLesPaul.html" class="dropdown__sublink">Les Paul</a></li>
+                                    <li><a href="productsStratocaster.html" class="dropdown__sublink">Stratocaster</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-icons">
+                <a href="#" id="userLink">
+                    <img class="adminIcon" src="../assets/img/icons/adminIcon.png">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ============== ADMIN ============== -->
+    <section class="admin-profile-page">
+
+    <h1 class="page-title">ADMIN</h1>
+
+    <div class="profile-layout">
+
+        <!-- ==============LEFT SIDEBAR ============== -->
+        <aside class="profile-sidebar">
+
+            <div class="avatar-container">
+
+                <img src="../assets/img/icons/admin.png"
+                     alt="Profile Avatar"
+                     class="profile-avatar">
+
+            </div>
+
+            <button class="logout-btn">
+                Cerrar sesión
+            </button>
+
+        </aside>
+
+        <!-- ============== RIGHT CONTENT ============== -->
+        <main class="profile-content">
+
+            <!-- ============== FORM SECTION ============== -->
+            <section class="info-section">
+
+                <h2>AGREGAR GUITARRA</h2>
+
+                <form class="guitar-form">
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text"
+                                   placeholder="Nombre de la guitarra...">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Marca</label>
+                            <input type="text"
+                                   placeholder="Marca...">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label>Modelo</label>
+                            <input type="text"
+                                   placeholder="Tipo de cuerpo...">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Precio</label>
+                            <input type="number"
+                                   placeholder="En rupías...">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row upload-row">
+
+                        <div class="upload-button-wrapper">
+
+                            <input type="file"
+                                   id="guitarImage"
+                                   hidden>
+
+                            <label for="guitarImage"
+                                   class="upload-btn">
+                                Subir imagen
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+            <!-- ============== SEARCH SECTION ============== -->
+            <section class="search-section">
+
+                <h2>ELIMINAR GUITARRA</h2>
+
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar guitarra...">
+                </div>
+
+            </section>
+
+            <!-- TABLE PLACEHOLDER -->
+            <section class="records-section">
+
+                <div class="records-container">
+
+                    <!--  ============== AQUÍ VAN LAS CARTAS QUE TENÍAMOS EN LOS PRODUCTS ============== -->
+                </div>
+
+            </section>
+
+            <!-- ============== DELETE BUTTON ============== -->
+            <div class="actions-row">
+
+                <button class="upload-btn">
+                    Eliminar
+                </button>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</section>
+
+
+    </section>
+
+    <!-- ============== JAVASCRIPT ============== -->
+    <script type="module" src="../assets/js/main.js"></script>
+
+</body>
+</html>

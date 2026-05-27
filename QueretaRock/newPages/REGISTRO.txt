@@ -1,0 +1,121 @@
+------------------------------ REGISTRO ---------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+
+    <!-- ============== CSS ============== -->
+    <link rel="stylesheet" href="../assets/css/pages/login.css">  
+    <!-- ============== ICON ============== -->
+    <link rel="icon" type="image/x-icon" href="Images/logo.ico">
+
+     <!-- ============== REMIXICONS ============== -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet"/>
+
+    <!-- ============== ICON ============== -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/icons/logo.ico"> 
+</head>
+<body>
+    <div class="login-container">
+
+    <!-- ============== LEFT PANEL ============== -->
+    <section class="login-panel">
+
+        <div class="logo">
+            <a href="../index.html">
+                <img class="logo" src="../assets/img/icons/logo.png" alt="logo">
+            </a>
+        </div>
+        <h2>Crea una cuenta para countinuar.</h2>
+
+        <!-- ============== TABS ============== -->
+        <div class="auth-tabs">
+            <button class="tab">
+                <a href="login.html">Iniciar sesión</a>
+            </button>
+            <button class="tab active">
+                Registrarse
+            </button>
+
+        </div>
+
+        <!-- ============== FORM ============== -->
+        <form class="login-form" id="registerForm">
+
+    <div class="input-group">
+
+        <input 
+            type="text"
+            id="registerUsername"
+            placeholder="Nombre"
+            required
+        >
+
+    </div>
+    
+    <div class="input-group">
+
+        <input 
+            type="text"
+            id="registerUsername"
+            placeholder="Apellidos"
+            required
+        >
+
+    </div>
+    <div class="input-group">
+
+        <input 
+            type="email"
+            id="registerEmail"
+            placeholder="Email"
+            required
+        >
+
+    </div>
+
+    <div class="input-group password-group">
+
+        <input 
+            type="password"
+            id="registerPassword"
+            placeholder="Introduzca la contraseña..."
+            required
+        >
+
+        <i class="ri-eye-line"></i>
+
+    </div>
+
+    <button 
+        type="submit"
+        class="login-btn"
+    >
+
+        Crear cuenta
+
+    </button>
+
+</form>
+
+        <div class="footer-text">
+            Querétarock 2026 ®
+        </div>
+
+    </section>
+
+
+    <!-- ============== RIGHT IMAGE ============== -->
+    <section class="image-panel">
+        <img src="../assets/img/categories/guitars.jpg"
+             alt="Electric Guitar"
+    </section>
+
+</div>
+<script type="module"
+src="../assets/js/modules/auth.js">
+</script>
+</body>
+</html>

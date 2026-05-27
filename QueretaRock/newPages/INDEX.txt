@@ -1,0 +1,206 @@
+---------------------- INDEX ------------------------------
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuerétaRock</title>
+
+    <!-- ============== FONTS ============== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ============== FONT AWESOME ============== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- ============== ICON ============== -->
+    <link rel="icon" type="image/x-icon" href="assets/img/icons/logo.ico">
+
+    <!-- ============== CSS ============== -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/pages/nav.css">
+    <link rel="stylesheet" href="assets/css/pages/cart.css">
+    <link rel="stylesheet" href="assets/css/components/slider.css">
+    <link rel="stylesheet" href="assets/css/components/footer.css">
+</head>
+<body>
+
+    <!-- ============== OVERLAY ============== -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <!-- ============== CART SIDEBAR ============== -->
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Tu Carrito</h2>
+            <button id="closeCart" class="close-cart">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="cart-content" id="cartContent"></div>
+
+        <div class="cart-summary">
+            <div class="summary-row total">
+                <span>Total</span>
+                <span id="cartTotal">$0 MXN</span>
+            </div>
+            <p class="shipping-note">Envío calculado al finalizar la compra</p>
+        </div>
+
+        <div class="checkout-section">
+            <button class="checkout-btn">Pagar Pedido</button>
+        </div>
+    </aside>
+
+    <!-- ============== HEADER ============== -->
+    <header class="header sticky">
+        <nav class="nav container">
+            <div class="nav__data">
+                <a href="#" class="nav__logo">
+                    <img class="logo" src="assets/img/icons/logo.png" alt="logo">
+                </a>
+            </div>
+
+            <!-- NAV MENU -->
+            <div class="nav__menu show-menu" id="nav-menu">
+                <ul class="nav__list">
+
+                    <li class="dropdown__item">
+                        <div class="nav__link"><a href="pages/products.html">Eléctricas</a></div>
+                        <ul class="dropdown__menu">
+                            <li class="dropdown__subitem">
+                                <div class="dropdown__link">Marcas</div>
+                                <ul class="dropdown__submenu">
+                                    <li><a href="pages/productsFender.html" class="dropdown__sublink">Fender</a></li>
+                                    <li><a href="pages/productsGibson.html" class="dropdown__sublink">Gibson</a></li>
+                                    <li><a href="pages/productsJackson.html" class="dropdown__sublink">Jackson</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown__subitem">
+                                <div class="dropdown__link">Modelo</div>
+                                <ul class="dropdown__submenu">
+                                    <li><a href="pages/productsFlying.html" class="dropdown__sublink">Flying V</a></li>
+                                    <li><a href="pages/productsLesPaul.html" class="dropdown__sublink">Les Paul</a></li>
+                                    <li><a href="pages/productsStratocaster.html" class="dropdown__sublink">Stratocaster</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+            </div>
+
+            <!-- NAV ICONS -->
+            <div class="nav-icons">
+                <a href="pages/login.html" id="userLink">
+                    <i class="fas fa-user"></i>
+                </a>
+                <button id="cartButton" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ============== HERO ============== -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2>Siente el poder del Rock</h2>
+            <p>Encuentra guitarras premium diseñadas para músicos reales.</p>
+            <a href="pages/products.html">
+                <button class="hero-btn">Explorar catálogo</button>
+            </a>
+        </div>
+    </section>
+
+    <!-- ============== CATEGORÍAS ============== -->
+    <section class="categories">
+        <h2 class="section-title">Categorías</h2>
+        <div class="categories-container">
+            <a href="pages/productsFender.html" class="category-card acoustic">
+                <div class="category-overlay"></div>
+                <h3>Fender</h3>
+            </a>
+            <a href="pages/productsGibson.html" class="category-card electric">
+                <div class="category-overlay"></div>
+                <h3>Gibson</h3>
+            </a>
+            <a href="pages/productsJackson.html" class="category-card electro">
+                <div class="category-overlay"></div>
+                <h3> Jackson </h3>
+            </a>
+        </div>
+    </section>
+
+    <!-- ============== ARTISTAS ============== -->
+    <section class="featured-products">
+        <h2 class="section-title">TOCA COMO TUS ARTISTAS FAVORITOS</h2>
+        <section class="slider__container">
+            <div class="slider__wrapper">
+                <div class="slider">
+                    <img id="slide-1" src="assets/img/categories/santana.webp" alt="Santana">
+                    <img id="slide-2" src="assets/img/categories/manu.webp" alt="Manu Chao">
+                    <img id="slide-3" src="assets/img/categories/juanes.webp" alt="Juanes">
+                </div>
+                <div class="slider__nav">
+                    <a href="#slide-1"></a>
+                    <a href="#slide-2"></a>
+                    <a href="#slide-3"></a>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- ============== FOOTER ============== -->
+    <footer>
+        <div class="row">
+            <div class="col">
+                <img class="logo" src="assets/img/icons/logo.png" alt="logo">
+                <p>QuerétaRock es una tienda dedicada a la venta de guitarras que busca
+                    la mejor calidad para nuestros clientes.</p>
+            </div>
+            <div class="col">
+                <h3>Oficina <div class="underline"><span></span></div></h3>
+                <p>Av. Constituyentes Pte. 9</p>
+                <p>Cimatario, Santiago de Querétaro, Qro.</p>
+                <p>C.P. 76030</p>
+                <p class="email-id">queretarock@gmail.com</p>
+                <h4>+52 442 384 1094</h4>
+            </div>
+            <div class="col">
+                <h3>Links <div class="underline"><span></span></div></h3>
+                <ul>
+                    <li class="footer-list"><a href="pages/productsFender.html">Fender</a></li>
+                    <li class="footer-list"><a href="pages/productsGibson.html">Gibson</a></li>
+                    <li class="footer-list"><a href="pages/productsJackson.html">Jackson</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <h3>Novedades <div class="underline"><span></span></div></h3>
+                <p>Ingresa tu correo para recibir las mejores ofertas.</p>
+                <form>
+                    <i class="far fa-envelope"></i>
+                    <input type="email" placeholder="Ingresa tu correo electrónico" required>
+                    <button type="submit"><i class="fas fa-arrow-right"></i></button>
+                </form>
+                <div class="social-icons">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-whatsapp"></i>
+                    <i class="fab fa-pinterest"></i>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">QuerétaRock © 2026 - Todos los derechos reservados</p>
+    </footer>
+
+    <!-- ============== JAVASCRIPT ============== -->
+    <script type="module" src="assets/js/main.js"></script>
+
+</body>
+</html>

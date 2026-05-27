@@ -16,6 +16,7 @@
 </head>
 <body>
 
+    <!-- ============== OVERLAY & CART ============== -->
     <div class="cart-overlay" id="cartOverlay"></div>
     <aside class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
@@ -32,6 +33,7 @@
         </div>
     </aside>
 
+    <!-- ============== HEADER ============== -->
     <header class="header sticky">
         <nav class="nav container">
             <div class="nav__data">
@@ -47,16 +49,16 @@
                             <li class="dropdown__subitem">
                                 <div class="dropdown__link">Marcas</div>
                                 <ul class="dropdown__submenu">
-                                    <li><a href="products.html?category=Acustica&brand=Fender" class="dropdown__sublink">Fender</a></li>
+                                    <li><a href="products.html?category=Acustica&brand=Fender"   class="dropdown__sublink">Fender</a></li>
                                     <li><a href="products.html?category=Acustica&brand=Epiphone" class="dropdown__sublink">Epiphone</a></li>
-                                    <li><a href="products.html?category=Acustica&brand=Yamaha" class="dropdown__sublink">Yamaha</a></li>
+                                    <li><a href="products.html?category=Acustica&brand=Yamaha"   class="dropdown__sublink">Yamaha</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown__subitem">
                                 <div class="dropdown__link">Modelo</div>
                                 <ul class="dropdown__submenu">
-                                    <li><a href="products.html?category=Acustica&model=Grand+Concert" class="dropdown__sublink">00 (Grand Concert)</a></li>
-                                    <li><a href="products.html?category=Acustica&model=Auditorium" class="dropdown__sublink">000 (Auditorium)</a></li>
+                                    <li><a href="products.html?category=Acustica&model=Grand+Concert"    class="dropdown__sublink">00 (Grand Concert)</a></li>
+                                    <li><a href="products.html?category=Acustica&model=Auditorium"       class="dropdown__sublink">000 (Auditorium)</a></li>
                                     <li><a href="products.html?category=Acustica&model=Grand+Performance" class="dropdown__sublink">Grand Performance</a></li>
                                 </ul>
                             </li>
@@ -68,16 +70,16 @@
                             <li class="dropdown__subitem">
                                 <div class="dropdown__link">Marcas</div>
                                 <ul class="dropdown__submenu">
-                                    <li><a href="products.html?category=Electrica&brand=Fender" class="dropdown__sublink">Fender</a></li>
-                                    <li><a href="products.html?category=Electrica&brand=Gibson" class="dropdown__sublink">Gibson</a></li>
+                                    <li><a href="products.html?category=Electrica&brand=Fender"  class="dropdown__sublink">Fender</a></li>
+                                    <li><a href="products.html?category=Electrica&brand=Gibson"  class="dropdown__sublink">Gibson</a></li>
                                     <li><a href="products.html?category=Electrica&brand=Jackson" class="dropdown__sublink">Jackson</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown__subitem">
                                 <div class="dropdown__link">Modelo</div>
                                 <ul class="dropdown__submenu">
-                                    <li><a href="products.html?category=Electrica&model=Flying+V" class="dropdown__sublink">Flying V</a></li>
-                                    <li><a href="products.html?category=Electrica&model=Les+Paul" class="dropdown__sublink">Les Paul</a></li>
+                                    <li><a href="products.html?category=Electrica&model=Flying+V"     class="dropdown__sublink">Flying V</a></li>
+                                    <li><a href="products.html?category=Electrica&model=Les+Paul"     class="dropdown__sublink">Les Paul</a></li>
                                     <li><a href="products.html?category=Electrica&model=Stratocaster" class="dropdown__sublink">Stratocaster</a></li>
                                 </ul>
                             </li>
@@ -98,8 +100,8 @@
                                 <div class="dropdown__link">Modelo</div>
                                 <ul class="dropdown__submenu">
                                     <li><a href="products.html?category=Electroacustica&model=Dreadnought" class="dropdown__sublink">Dreadnought</a></li>
-                                    <li><a href="products.html?category=Electroacustica&model=Jumbo" class="dropdown__sublink">Jumbo</a></li>
-                                    <li><a href="products.html?category=Electroacustica&model=Parlour" class="dropdown__sublink">Parlour</a></li>
+                                    <li><a href="products.html?category=Electroacustica&model=Jumbo"       class="dropdown__sublink">Jumbo</a></li>
+                                    <li><a href="products.html?category=Electroacustica&model=Parlour"     class="dropdown__sublink">Parlour</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -117,22 +119,27 @@
         </nav>
     </header>
 
+    <!-- ============== PERFIL ============== -->
     <section class="profile-page">
-        <h2 class="section-title">Mi Perfil</h2>
 
+        <!-- PORTADA -->
         <div class="cover-container">
             <div class="cover-photo"></div>
             <div class="profile-avatar"><i class="fa-regular fa-user"></i></div>
         </div>
 
+        <!-- NOMBRE Y MEMBRESÍA -->
         <div class="member-section">
-            <h3>Miembro desde</h3>
-            <span id="memberSince">Cargando...</span>
+            <h3 id="userNameDisplay">Cargando...</h3>
+            <span>Miembro desde: <strong id="memberSince">—</strong></span>
         </div>
 
+        <!-- INFORMACIÓN PERSONAL -->
         <div class="about-section">
-            <h2>Información</h2>
-            <p id="profileLoading" style="color:#888;margin-bottom:1rem;">Cargando datos...</p>
+            <h2>Información personal</h2>
+            <p id="profileLoading" style="color:#888;margin-bottom:1rem;">
+                <i class="fas fa-spinner fa-spin"></i> Cargando datos...
+            </p>
 
             <form class="profile-form" id="profileForm" style="display:none;">
                 <div class="form-row">
@@ -148,11 +155,13 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Correo electrónico</label>
-                        <input type="email" id="correo" readonly style="opacity:.6;cursor:not-allowed;">
+                        <input type="email" id="correo" readonly
+                               style="opacity:.55;cursor:not-allowed;"
+                               title="El correo no se puede modificar">
                     </div>
                     <div class="form-group">
-                        <label>No. telefónico</label>
-                        <input type="text" id="telefono" placeholder="Tu teléfono">
+                        <label>Teléfono</label>
+                        <input type="tel" id="telefono" placeholder="+52 442 000 0000">
                     </div>
                 </div>
                 <div class="form-actions">
@@ -163,11 +172,30 @@
                         <i class="fas fa-sign-out-alt"></i> Cerrar sesión
                     </button>
                 </div>
-                <p id="saveMsg" style="display:none;margin-top:1rem;color:#4caf50;font-weight:600;">
-                    Cambios guardados correctamente
+                <p id="saveMsg" style="display:none;margin-top:1rem;color:#4caf50;font-weight:600;align-items:center;gap:.5rem;">
+                    <i class="fas fa-check-circle"></i> Cambios guardados correctamente
                 </p>
             </form>
         </div>
+
+        <!-- HISTORIAL DE COMPRAS -->
+        <div class="orders-section" id="ordersSection">
+            <h2>Mis compras</h2>
+            <p id="ordersLoading" style="color:#888;">
+                <i class="fas fa-spinner fa-spin"></i> Cargando historial...
+            </p>
+
+            <!-- Sin compras -->
+            <div id="ordersEmpty" style="display:none;" class="orders-empty">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Aún no tienes compras registradas.</p>
+                <a href="products.html" class="browse-btn">Explorar productos</a>
+            </div>
+
+            <!-- Lista de órdenes -->
+            <div id="ordersList" class="orders-list"></div>
+        </div>
+
     </section>
 
     <script type="module" src="../assets/js/main.js"></script>

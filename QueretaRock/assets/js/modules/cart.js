@@ -1,12 +1,16 @@
 /* ================= CART MODULE ================= */
 
+const BASE_URL = '/Proyecto_Final/QueretaRock/';
+
 const cartButton  = document.getElementById('cartButton');
 const cartSidebar = document.getElementById('cartSidebar');
-const cartOverlay = document.getElementById('cartOverlay');
-const closeCart   = document.getElementById('closeCart');
+// El overlay usa clase "cart-overlay" en index.html y "cart-overlay" en el resto
+const cartOverlay = document.getElementById('cartOverlay') || document.querySelector('.cart-overlay');
+const closeCartBtn = document.getElementById('closeCart');
 const cartContent = document.getElementById('cartContent');
 const cartCount   = document.getElementById('cartCount');
 const cartTotal   = document.getElementById('cartTotal');
+const checkoutBtn = document.getElementById('checkoutBtn') || document.querySelector('.checkout-btn');
 
 /* ================= SAFE CART ================= */
 
@@ -15,13 +19,9 @@ function getCart() {
     if (!raw || raw === 'undefined' || raw === 'null') return [];
     try {
         const parsed = JSON.parse(raw);
-        /* Filtra productos inválidos: deben tener id, nombre y precio válido */
-        return parsed.filter(p =>
-            p &&
-            p.id !== undefined &&
-            p.name &&
-            Number(p.price) > 0
-        );
+        return Array.isArray(parsed)
+            ? parsed.filter(p => p && p.id !== undefined && p.name && Number(p.price) > 0)
+            : [];
     } catch {
         localStorage.removeItem('cart');
         return [];
@@ -52,12 +52,30 @@ if (cartButton) {
     });
 }
 
-if (closeCart)   closeCart.addEventListener('click', closeCartSidebar);
-if (cartOverlay) cartOverlay.addEventListener('click', closeCartSidebar);
+if (closeCartBtn) closeCartBtn.addEventListener('click', closeCartSidebar);
+if (cartOverlay)  cartOverlay.addEventListener('click', closeCartSidebar);
 
 function closeCartSidebar() {
     cartSidebar?.classList.remove('active');
     cartOverlay?.classList.remove('active');
+}
+
+/* ================= CHECKOUT REDIRECT ================= */
+
+if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', () => {
+        const cart = getCart();
+        if (cart.length === 0) {
+            alert('Tu carrito está vacío');
+            return;
+        }
+        // Redirige relativo a la página actual
+        const isRoot = !window.location.pathname.includes('/pages/');
+        const checkoutPath = isRoot
+            ? BASE_URL + 'pages/checkout.html'
+            : 'checkout.html';
+        window.location.href = checkoutPath;
+    });
 }
 
 /* ================= RENDER ================= */
@@ -84,6 +102,10 @@ function renderCart() {
     cart.forEach(product => {
         const price    = Number(product.price)    || 0;
         const quantity = Number(product.quantity) || 1;
+        // Las imágenes en BD guardan ruta relativa; se antepone BASE_URL
+        const imageURL = product.image
+            ? (product.image.startsWith('http') ? product.image : BASE_URL + product.image)
+            : '';
 
         total      += price * quantity;
         totalItems += quantity;
@@ -91,7 +113,7 @@ function renderCart() {
         const item = document.createElement('div');
         item.classList.add('cart-item');
         item.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
+            <img src="${imageURL}" alt="${product.name}" onerror="this.style.display='none'">
             <div class="item-details">
                 <h3>${product.name}</h3>
                 <div class="item-price">$${price.toLocaleString()} MXN</div>
@@ -126,7 +148,9 @@ function renderCart() {
 
 function changeQuantity(id, delta) {
     let cart = getCart().map(p => {
-        if (p.id == id) p.quantity = (Number(p.quantity) || 1) + delta;
+        if (String(p.id) === String(id)) {
+            p.quantity = (Number(p.quantity) || 1) + delta;
+        }
         return p;
     }).filter(p => p.quantity > 0);
     saveCart(cart);
@@ -135,7 +159,7 @@ function changeQuantity(id, delta) {
 /* ================= DELETE ================= */
 
 function removeFromCart(id) {
-    saveCart(getCart().filter(p => p.id != id));
+    saveCart(getCart().filter(p => String(p.id) !== String(id)));
 }
 
 /* ================= STORAGE EVENT ================= */
@@ -146,14 +170,14 @@ window.addEventListener('storage', () => {
 });
 
 /* ================= SANITIZE ON LOAD ================= */
-/* Elimina cualquier producto hardcodeado del viejo data/products.js */
 
 (function sanitizeCart() {
     const raw = localStorage.getItem('cart');
     if (!raw) return;
     try {
         const parsed = JSON.parse(raw);
-        const clean  = parsed.filter(p =>
+        if (!Array.isArray(parsed)) { localStorage.removeItem('cart'); return; }
+        const clean = parsed.filter(p =>
             p && p.id !== undefined && p.name && Number(p.price) > 0
         );
         if (clean.length !== parsed.length) {

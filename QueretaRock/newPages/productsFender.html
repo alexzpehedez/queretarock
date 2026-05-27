@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fender | QueretaRock</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../assets/img/icons/logo.ico">
+
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/pages/nav.css">
+    <link rel="stylesheet" href="../assets/css/pages/cart.css">
+    <link rel="stylesheet" href="../assets/css/components/footer.css">
+
+</head>
+<body>
+
+    <!-- ============== OVERLAY ============== -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <!-- ============== CART SIDEBAR ============== -->
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Tu Carrito</h2>
+            <button id="closeCart" class="close-cart">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="cart-content" id="cartContent"></div>
+
+        <div class="cart-summary">
+            <div class="summary-row total">
+                <span>Total</span>
+                <span id="cartTotal">$0 MXN</span>
+            </div>
+            <p class="shipping-note">Envío calculado al finalizar la compra</p>
+        </div>
+
+        <div class="checkout-section">
+            <button class="checkout-btn">Pagar Pedido</button>
+        </div>
+    </aside>
+
+    <!-- ============== HEADER ============== -->
+    <header class="header sticky">
+        <nav class="nav container">
+            <div class="nav__data">
+                <a href="../index.html" class="nav__logo">
+                    <img class="logo" src="../assets/img/icons/logo.png" alt="logo">
+                </a>
+            </div>
+
+            <div class="nav__menu show-menu" id="nav-menu">
+                <ul class="nav__list">
+                    
+                    <li class="dropdown__item">
+                        <div class="nav__link"><a href="products.html">Eléctricas</a></div>
+                        <ul class="dropdown__menu">
+                            <li class="dropdown__subitem">
+                                <div class="dropdown__link">Marcas</div>
+                                <ul class="dropdown__submenu">
+                                    <li><a href="#" class="dropdown__sublink">Fender</a></li>
+                                    <li><a href="productsGibson.html" class="dropdown__sublink">Gibson</a></li>
+                                    <li><a href="productsJackson.html" class="dropdown__sublink">Jackson</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown__subitem">
+                                <div class="dropdown__link">Modelo</div>
+                                <ul class="dropdown__submenu">
+                                    <li><a href="productsFlying.html" class="dropdown__sublink">Flying V</a></li>
+                                    <li><a href="productsLesPaul.html" class="dropdown__sublink">Les Paul</a></li>
+                                    <li><a href="productsStratocaster.html" class="dropdown__sublink">Stratocaster</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-icons">
+                <a href="user.html" id="userLink">
+                    <i class="fas fa-user"></i>
+                </a>
+                <button id="cartButton" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ============== CATÁLOGO ============== -->
+    <section class="products-page">
+
+        <aside class="filters">
+            <h2>Filtros</h2>
+
+            <div class="filter-group">
+                <h3>Modelo</h3>
+                <label><input type="checkbox" value="Stratocaster"> Stratocaster</label>
+                <label><input type="checkbox" value="Telecaster"> Telecaster</label>
+                <label><input type="checkbox" value="Jazzmaster"> Jazzmaster</label>
+                <label><input type="checkbox" value="Jaguar"> Jaguar</label>
+                <label><input type="checkbox" value="Mustang"> Mustang</label>
+                <label><input type="checkbox" value="Starcaster"> Starcaster</label>
+
+            </div>
+
+
+            <div class="filter-group">
+                <h3>Precio máximo</h3>
+                <input type="range" id="priceRange" min="0" max="100000" value="100000" step="500">
+                <span id="priceLabel">$100,000</span>
+            </div>
+        </aside>
+
+        <div class="products-content">
+            <div class="products-topbar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar guitarras...">
+                </div>
+                <select id="sortSelect">
+                    <option value="">Ordenar por</option>
+                    <option value="low">Menor precio</option>
+                    <option value="high">Mayor precio</option>
+                </select>
+            </div>
+
+            <h2 class="section-title">Catálogo</h2>
+            <div class="products-grid" id="productsGrid"></div>
+        </div>
+
+    </section>
+<!-- ============== FOOTER ============== -->
+    <footer>
+        <div class="row">
+            <div class="col">
+                <img class="logo" src="../assets/img/icons/logo.png" alt="logo">
+                <p>QuerétaRock es una tienda dedicada a la venta de guitarras que busca
+                    la mejor calidad para nuestros clientes.</p>
+            </div>
+            <div class="col">
+                <h3>Oficina <div class="underline"><span></span></div></h3>
+                <p>Av. Constituyentes Pte. 9</p>
+                <p>Cimatario, Santiago de Querétaro, Qro.</p>
+                <p>C.P. 76030</p>
+                <p class="email-id">queretarock@gmail.com</p>
+                <h4>+52 442 384 1094</h4>
+            </div>
+            <div class="col">
+                <h3>Links <div class="underline"><span></span></div></h3>
+                <ul>
+                    <li class="footer-list"><a href="#">Fender</a></li>
+                    <li class="footer-list"><a href="productsGibson.html">Gibson</a></li>
+                    <li class="footer-list"><a href="productsJackson.html">Jackson</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <h3>Novedades <div class="underline"><span></span></div></h3>
+                <p>Ingresa tu correo para recibir las mejores ofertas.</p>
+                <form>
+                    <i class="far fa-envelope"></i>
+                    <input type="email" placeholder="Ingresa tu correo electrónico" required>
+                    <button type="submit"><i class="fas fa-arrow-right"></i></button>
+                </form>
+                <div class="social-icons">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-whatsapp"></i>
+                    <i class="fab fa-pinterest"></i>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">QuerétaRock © 2026 - Todos los derechos reservados</p>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">Producto agregado al carrito</div>
+
+    <!-- ============== JAVASCRIPT ============== -->
+    <script type="module" src="../assets/js/main.js"></script>
+
+</body>
+</html>

@@ -1,7 +1,15 @@
+/* ================= IMPORTS ================= */
+// cart y menu se cargan en todas las páginas
 import './modules/cart.js';
 import './modules/menu.js';
+
+// products.js solo actúa si hay un grid de productos en la página
 import './modules/products.js';
+
+// product-detail.js solo actúa si estamos en product.html (hay #productName)
 import './modules/product-detail.js';
+
+// auth.js solo actúa si hay formulario de login o registro
 import './modules/auth.js';
 
 /* ================= BASE URL ================= */
@@ -10,11 +18,10 @@ const BASE_URL = '/Proyecto_Final/QueretaRock/';
 
 /* ================= NAVBAR SCROLL ================= */
 
-const navbar = document.querySelector('.header');
-
-if (navbar) {
+const header = document.querySelector('.header');
+if (header) {
     window.addEventListener('scroll', () => {
-        navbar.classList.toggle('scrolled', window.scrollY > 50);
+        header.classList.toggle('scrolled', window.scrollY > 50);
     });
 }
 
@@ -47,45 +54,55 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!userLink) return;
 
     userLink.href = usuario
-        ? BASE_URL + 'pages/user.html'
-        : BASE_URL + 'pages/login.html';
+        ? (window.location.pathname.includes('/pages/')
+            ? 'user.html'
+            : BASE_URL + 'pages/user.html')
+        : (window.location.pathname.includes('/pages/')
+            ? 'login.html'
+            : BASE_URL + 'pages/login.html');
 });
 
-/* ================= USER PAGE — populate form ================= */
+/* ================= USER PAGE — pre-fill form ================= */
 
 document.addEventListener('DOMContentLoaded', () => {
-    const nombreEl   = document.getElementById('nombre');
-    const apellidoEl = document.getElementById('apellido');
-    const correoEl   = document.getElementById('correo');
+    const isUserPage = window.location.pathname.includes('user.html');
 
-    /* Si estamos en user.html y no hay sesión → redirigir */
-    if (
-        window.location.pathname.includes('user.html') &&
-        !usuario
-    ) {
-        window.location.href = BASE_URL + 'pages/login.html';
+    // Redirige si no hay sesión y estamos en la página de perfil
+    if (isUserPage && !usuario) {
+        window.location.href = window.location.pathname.includes('/pages/')
+            ? 'login.html'
+            : BASE_URL + 'pages/login.html';
         return;
     }
 
     if (!usuario) return;
 
-    if (nombreEl)   nombreEl.value   = usuario.nombre   || '';
-    if (apellidoEl) apellidoEl.value = usuario.apellido || '';
-    if (correoEl)   correoEl.value   = usuario.email    || '';
+    // Pre-fill básico desde localStorage (user.js lo sobreescribe con datos de BD)
+    const nombreEl   = document.getElementById('nombre');
+    const apellidoEl = document.getElementById('apellido');
+    const correoEl   = document.getElementById('correo');
+
+    if (nombreEl   && !nombreEl.value)   nombreEl.value   = usuario.nombre   || '';
+    if (apellidoEl && !apellidoEl.value) apellidoEl.value = usuario.apellido || '';
+    if (correoEl   && !correoEl.value)   correoEl.value   = usuario.email    || '';
 });
 
 /* ================= LOGOUT ================= */
 
 function cerrarSesion() {
     localStorage.removeItem('usuario');
-    window.location.href = BASE_URL + 'pages/login.html';
+    localStorage.removeItem('cart');
+    const loginPath = window.location.pathname.includes('/pages/')
+        ? 'login.html'
+        : BASE_URL + 'pages/login.html';
+    window.location.href = loginPath;
 }
 
 window.cerrarSesion = cerrarSesion;
 
 /* ================= CLEAN INVALID STORAGE ================= */
 
-const _raw = localStorage.getItem('usuario');
-if (_raw === 'undefined' || _raw === 'null') {
+const _rawUsuario = localStorage.getItem('usuario');
+if (_rawUsuario === 'undefined' || _rawUsuario === 'null') {
     localStorage.removeItem('usuario');
 }
