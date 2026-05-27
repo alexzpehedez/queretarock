@@ -1,4 +1,4 @@
-/* ================= PRODUCTS MODULE v2 ================= */
+/* ================= PRODUCTS MODULE — FIXED ================= */
 
 const BASE_URL = '/Proyecto_Final/QueretaRock/';
 
@@ -50,6 +50,11 @@ async function loadProducts() {
         const text = await res.text();
         try {
             allProducts = JSON.parse(text);
+            if (!Array.isArray(allProducts)) {
+                console.error('Respuesta inesperada:', text.substring(0, 300));
+                showGridError('Error al cargar productos. Verifica que el servidor esté activo.');
+                return;
+            }
         } catch {
             console.error('Error PHP en getProducts:', text.substring(0, 300));
             showGridError('Error al cargar productos. Verifica que el servidor esté activo.');
@@ -134,6 +139,9 @@ function renderProducts(products) {
             ? (product.image.startsWith('http') ? product.image : BASE_URL + product.image)
             : '';
 
+        /* FIX: escapar correctamente los datos del producto para el atributo data */
+        const productData = JSON.stringify(product).replace(/'/g, "&#39;").replace(/"/g, '&quot;');
+
         card.innerHTML = `
             <img src="${imageURL}" alt="${product.name}" loading="lazy"
                  onerror="this.style.background='#1b1b1b';this.style.minHeight='200px'">
@@ -143,47 +151,52 @@ function renderProducts(products) {
                 <div class="product-buttons">
                     <a class="view-btn" href="product.html?id=${product.id}">Ver detalle</a>
                     <button class="add-cart-btn" aria-label="Agregar al carrito"
-                            data-product='${JSON.stringify(product).replace(/'/g, "&#39;")}'>
+                            data-product-id="${product.id}">
                         <i class="fas fa-cart-plus"></i>
                     </button>
                 </div>
             </div>`;
 
+        /* FIX: guardar el objeto en un Map en vez de en el atributo HTML (evita problemas de escape) */
+        productMap.set(String(product.id), product);
+
         card.querySelector('.add-cart-btn').addEventListener('click', e => {
-            addToCart(JSON.parse(
-                e.currentTarget.dataset.product.replace(/&#39;/g, "'")
-            ));
+            const id = e.currentTarget.dataset.productId;
+            const prod = productMap.get(id);
+            if (prod) addToCart(prod);
         });
 
         productsGrid.appendChild(card);
     });
 }
 
+/* Map para evitar problemas de serialización en atributos HTML */
+const productMap = new Map();
+
 /* ================= ADD TO CART ================= */
 
 function addToCart(product) {
-    let cart = [];
-    try {
-        const raw = localStorage.getItem('cart');
-        cart = (raw && raw !== 'undefined') ? JSON.parse(raw) : [];
-        if (!Array.isArray(cart)) cart = [];
-    } catch { cart = []; }
-
-    const existing = cart.find(i => String(i.id) === String(product.id));
-    if (existing) {
-        existing.quantity = (Number(existing.quantity) || 1) + 1;
+    /* FIX: usar la función global de cart.js si está disponible */
+    if (typeof window.addToCartGlobal === 'function') {
+        window.addToCartGlobal(product);
     } else {
-        cart.push({ ...product, quantity: 1 });
+        /* fallback manual (por si cart.js aún no cargó) */
+        try {
+            const raw = localStorage.getItem('cart');
+            let cart = (raw && raw !== 'undefined') ? JSON.parse(raw) : [];
+            if (!Array.isArray(cart)) cart = [];
+            const existing = cart.find(i => String(i.id) === String(product.id));
+            if (existing) {
+                existing.quantity = (Number(existing.quantity) || 1) + 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            if (typeof window._cartRefresh === 'function') window._cartRefresh();
+        } catch (e) {
+            console.error('Error al agregar al carrito:', e);
+        }
     }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    // FIX: llamar directamente a las funciones de cart.js en lugar de
-    // disparar un evento que puede no llegar al listener correcto
-    if (typeof window._cartRefresh === 'function') {
-        window._cartRefresh();
-    }
-
     showToast();
 }
 

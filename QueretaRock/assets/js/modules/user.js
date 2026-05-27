@@ -1,12 +1,14 @@
-/* ================= USER MODULE v2 ================= */
+/* ================= USER MODULE — FIXED ================= */
 
 const BASE_URL = '/Proyecto_Final/QueretaRock/';
 
 /* ── Helper: usuario desde localStorage ── */
 function getUsuario() {
-    const raw = localStorage.getItem('usuario');
-    if (!raw || raw === 'undefined' || raw === 'null') return null;
-    try { return JSON.parse(raw); } catch { return null; }
+    try {
+        const raw = localStorage.getItem('usuario');
+        if (!raw || raw === 'undefined' || raw === 'null') return null;
+        return JSON.parse(raw);
+    } catch { return null; }
 }
 
 const usuario = getUsuario();
@@ -16,24 +18,31 @@ if (!usuario) {
     window.location.href = 'login.html';
 }
 
+/* ── FIX: cerrarSesion definida aquí Y expuesta globalmente ── */
+function cerrarSesion() {
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('cart');
+    window.location.href = 'login.html';
+}
+window.cerrarSesion = cerrarSesion;
+
 /* ── Helper: fetch JSON con manejo seguro de errores ── */
 async function fetchJSON(url, options = {}) {
-    const res = await fetch(url, options);
-    const text = await res.text();            // Lee como texto primero
+    const res  = await fetch(url, options);
+    const text = await res.text();
     try {
-        return JSON.parse(text);              // Intenta parsear JSON
+        return JSON.parse(text);
     } catch {
-        // Si PHP mandó HTML de error, se captura aquí
         console.error('Respuesta no-JSON de', url, ':', text.substring(0, 200));
-        throw new Error('El servidor respondió con un error PHP. Revisa la consola.');
+        throw new Error('El servidor respondió con un error. Revisa la consola.');
     }
 }
 
 /* ── Referencias DOM: perfil ── */
-const profileForm    = document.getElementById('profileForm');
-const profileLoading = document.getElementById('profileLoading');
-const memberSince    = document.getElementById('memberSince');
-const saveMsg        = document.getElementById('saveMsg');
+const profileForm     = document.getElementById('profileForm');
+const profileLoading  = document.getElementById('profileLoading');
+const memberSince     = document.getElementById('memberSince');
+const saveMsg         = document.getElementById('saveMsg');
 const userNameDisplay = document.getElementById('userNameDisplay');
 
 /* ── Carga perfil desde BD ── */
@@ -54,26 +63,22 @@ async function loadUserProfile() {
 
         const u = data.usuario;
 
-        // Rellena formulario
         setValue('nombre',   u.username  || '');
         setValue('apellido', u.apellido  || '');
         setValue('correo',   u.email     || '');
         setValue('telefono', u.telefono  || '');
 
-        // Nombre visible en portada
         if (userNameDisplay) {
             userNameDisplay.textContent =
                 [u.username, u.apellido].filter(Boolean).join(' ') || 'Usuario';
         }
 
-        // Fecha de membresía
         if (memberSince && u.created_at) {
             memberSince.textContent = new Date(u.created_at).toLocaleDateString('es-MX', {
                 day: 'numeric', month: 'long', year: 'numeric'
             });
         }
 
-        // Actualiza localStorage
         localStorage.setItem('usuario', JSON.stringify({
             ...usuario,
             nombre:   u.username  || '',
@@ -82,7 +87,6 @@ async function loadUserProfile() {
             telefono: u.telefono  || ''
         }));
 
-        // Muestra formulario
         if (profileLoading) profileLoading.style.display = 'none';
         if (profileForm)    profileForm.style.display    = 'flex';
 
@@ -147,10 +151,9 @@ profileForm?.addEventListener('submit', async (e) => {
 
 /* ================= HISTORIAL DE COMPRAS ================= */
 
-const ordersSection  = document.getElementById('ordersSection');
-const ordersLoading  = document.getElementById('ordersLoading');
-const ordersList     = document.getElementById('ordersList');
-const ordersEmpty    = document.getElementById('ordersEmpty');
+const ordersLoading = document.getElementById('ordersLoading');
+const ordersList    = document.getElementById('ordersList');
+const ordersEmpty   = document.getElementById('ordersEmpty');
 
 const STATUS_LABELS = {
     pending:   { text: 'Pendiente',   color: '#f59e0b' },
@@ -163,6 +166,13 @@ const STATUS_LABELS = {
 async function loadOrders() {
     if (!usuario || !ordersList) return;
 
+    /* FIX: verificar que usuario.id existe antes de llamar al backend */
+    if (!usuario.id) {
+        if (ordersLoading) ordersLoading.style.display = 'none';
+        if (ordersEmpty)   ordersEmpty.style.display   = 'flex';
+        return;
+    }
+
     try {
         const data = await fetchJSON(BASE_URL + 'backend/orders/getOrders.php', {
             method:  'POST',
@@ -172,7 +182,8 @@ async function loadOrders() {
 
         if (ordersLoading) ordersLoading.style.display = 'none';
 
-        if (!data.success || !data.orders || data.orders.length === 0) {
+        /* FIX: manejar respuesta vacía sin error */
+        if (!data.success || !Array.isArray(data.orders) || data.orders.length === 0) {
             if (ordersEmpty) ordersEmpty.style.display = 'flex';
             return;
         }
@@ -183,7 +194,7 @@ async function loadOrders() {
         console.error('Error cargando órdenes:', err);
         if (ordersLoading) {
             ordersLoading.innerHTML =
-                '<span style="color:#e63946">No se pudo cargar el historial de compras.</span>';
+                '<span style="color:#e63946"><i class="fas fa-exclamation-triangle"></i> No se pudo cargar el historial de compras.</span>';
         }
     }
 }
@@ -193,11 +204,14 @@ function renderOrders(orders) {
     ordersList.innerHTML = '';
 
     orders.forEach(order => {
-        const status   = STATUS_LABELS[order.status] || STATUS_LABELS.paid;
-        const fecha    = new Date(order.created_at).toLocaleDateString('es-MX', {
+        const status = STATUS_LABELS[order.status] || STATUS_LABELS.paid;
+        const fecha  = new Date(order.created_at).toLocaleDateString('es-MX', {
             day: 'numeric', month: 'long', year: 'numeric'
         });
-        const itemsHTML = order.items.map(item => {
+
+        /* FIX: verificar que items existe y es array */
+        const items = Array.isArray(order.items) ? order.items : [];
+        const itemsHTML = items.map(item => {
             const img = item.product_image
                 ? (item.product_image.startsWith('http')
                     ? item.product_image
@@ -214,6 +228,13 @@ function renderOrders(orders) {
             </div>`;
         }).join('');
 
+        const methodIcon = order.payment_method === 'card'     ? 'credit-card'
+                         : order.payment_method === 'oxxo'     ? 'store'
+                         : 'university';
+        const methodText = order.payment_method === 'card'     ? 'Tarjeta'
+                         : order.payment_method === 'oxxo'     ? 'OXXO'
+                         : 'Transferencia';
+
         const card = document.createElement('article');
         card.classList.add('order-card');
         card.innerHTML = `
@@ -226,11 +247,10 @@ function renderOrders(orders) {
                     ${status.text}
                 </span>
             </div>
-            <div class="order-items-list">${itemsHTML}</div>
+            <div class="order-items-list">${itemsHTML || '<p style="color:#888;padding:1rem;">Sin productos</p>'}</div>
             <div class="order-card-footer">
                 <span class="order-payment">
-                    <i class="fas fa-${order.payment_method === 'card' ? 'credit-card' : order.payment_method === 'oxxo' ? 'store' : 'university'}"></i>
-                    ${order.payment_method === 'card' ? 'Tarjeta' : order.payment_method === 'oxxo' ? 'OXXO' : 'Transferencia'}
+                    <i class="fas fa-${methodIcon}"></i> ${methodText}
                 </span>
                 <span class="order-total">Total: <strong>$${Number(order.total).toLocaleString()} MXN</strong></span>
             </div>`;

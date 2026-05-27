@@ -1,13 +1,17 @@
-/* ================= CHECKOUT MODULE v2 ================= */
+/* ================= CHECKOUT MODULE — FIXED ================= */
+/* IMPORTANTE: este archivo NO es un módulo ES (no type="module")
+   para garantizar que lee el mismo localStorage que el resto del sitio */
 
 const BASE_URL = '/Proyecto_Final/QueretaRock/';
 
+/* ── Helpers ── */
 function getCart() {
     try {
         const raw = localStorage.getItem('cart');
         if (!raw || raw === 'undefined' || raw === 'null') return [];
         const parsed = JSON.parse(raw);
-        return Array.isArray(parsed) ? parsed : [];
+        if (!Array.isArray(parsed)) return [];
+        return parsed.filter(p => p && p.id !== undefined && p.name && Number(p.price) > 0);
     } catch { return []; }
 }
 
@@ -28,9 +32,12 @@ if (usuario) {
         chkEmail:    usuario.email    || '',
         chkTelefono: usuario.telefono || ''
     };
-    Object.entries(map).forEach(([id, val]) => {
-        const el = document.getElementById(id);
-        if (el) el.value = val;
+    /* FIX: esperar al DOM antes de rellenar */
+    document.addEventListener('DOMContentLoaded', () => {
+        Object.entries(map).forEach(([id, val]) => {
+            const el = document.getElementById(id);
+            if (el && val) el.value = val;
+        });
     });
 }
 
@@ -94,7 +101,10 @@ document.getElementById('checkoutForm')?.addEventListener('submit', async (e) =>
     e.preventDefault();
 
     const cart = getCart();
-    if (cart.length === 0) { alert('Tu carrito está vacío'); return; }
+    if (cart.length === 0) {
+        alert('Tu carrito está vacío. Por favor agrega productos antes de continuar.');
+        return;
+    }
 
     const btn = e.target.querySelector('.place-order-btn');
     if (btn) { btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...'; btn.disabled = true; }
@@ -113,11 +123,10 @@ document.getElementById('checkoutForm')?.addEventListener('submit', async (e) =>
         cp:             document.getElementById('chkCP')?.value.trim()        || ''
     };
 
-    // Simulación de delay de pago
+    /* Simulación de delay de pago */
     await new Promise(r => setTimeout(r, 1500));
 
     try {
-        // FIX: ruta correcta → backend/orders/createOrder.php
         const res  = await fetch(BASE_URL + 'backend/orders/createOrder.php', {
             method:  'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -130,19 +139,35 @@ document.getElementById('checkoutForm')?.addEventListener('submit', async (e) =>
         }
         if (data && !data.success) {
             console.warn('Orden no guardada en BD:', data.message);
-            // No bloqueamos el flujo — el usuario ya "pagó"
         }
     } catch (err) {
         console.warn('Error al guardar orden (no bloquea flujo):', err);
     }
 
-    // Limpiar carrito y mostrar modal de éxito
+    /* FIX: limpiar carrito ANTES de mostrar el modal */
     localStorage.removeItem('cart');
+
     const modal = document.getElementById('successModal');
     if (modal) modal.classList.add('show');
 
     if (btn) { btn.innerHTML = '<i class="fas fa-lock"></i> Confirmar pedido'; btn.disabled = false; }
 });
 
-/* ── Init ── */
-renderSummary();
+/* ── FIX: verificar que hay productos al cargar la página ── */
+document.addEventListener('DOMContentLoaded', () => {
+    const cart = getCart();
+    if (cart.length === 0) {
+        const summaryItems = document.getElementById('summaryItems');
+        if (summaryItems) {
+            summaryItems.innerHTML = `
+                <div style="text-align:center;padding:2rem;color:#888;">
+                    <i class="fas fa-shopping-cart" style="font-size:2rem;margin-bottom:1rem;display:block;"></i>
+                    <p>Tu carrito está vacío.</p>
+                    <a href="../pages/products.html" style="color:#c1121f;font-weight:600;">Ver productos</a>
+                </div>`;
+        }
+        const submitBtn = document.querySelector('.place-order-btn');
+        if (submitBtn) submitBtn.disabled = true;
+    }
+    renderSummary();
+});

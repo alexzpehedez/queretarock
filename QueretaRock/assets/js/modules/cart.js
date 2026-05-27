@@ -1,4 +1,4 @@
-/* ================= CART MODULE ================= */
+/* ================= CART MODULE — FIXED ================= */
 
 const BASE_URL = '/Proyecto_Final/QueretaRock/';
 
@@ -14,13 +14,12 @@ const checkoutBtn  = document.getElementById('checkoutBtn') || document.querySel
 /* ================= SAFE CART ================= */
 
 function getCart() {
-    const raw = localStorage.getItem('cart');
-    if (!raw || raw === 'undefined' || raw === 'null') return [];
     try {
+        const raw = localStorage.getItem('cart');
+        if (!raw || raw === 'undefined' || raw === 'null') return [];
         const parsed = JSON.parse(raw);
-        return Array.isArray(parsed)
-            ? parsed.filter(p => p && p.id !== undefined && p.name && Number(p.price) > 0)
-            : [];
+        if (!Array.isArray(parsed)) return [];
+        return parsed.filter(p => p && p.id !== undefined && p.name && Number(p.price) > 0);
     } catch {
         localStorage.removeItem('cart');
         return [];
@@ -28,17 +27,33 @@ function getCart() {
 }
 
 function saveCart(cart) {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    try {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    } catch (e) {
+        console.error('Error guardando carrito:', e);
+    }
     renderCart();
     updateCartCount();
 }
 
+/* ================= GLOBAL ADD TO CART (usado por products.js y product-detail.js) ================= */
+window.addToCartGlobal = function(product) {
+    const cart = getCart();
+    const existing = cart.find(i => String(i.id) === String(product.id));
+    if (existing) {
+        existing.quantity = (Number(existing.quantity) || 1) + 1;
+    } else {
+        cart.push({ ...product, quantity: 1 });
+    }
+    saveCart(cart);
+};
+
 /* ================= COUNT ================= */
 
 function updateCartCount() {
-    if (!cartCount) return;
+    const all = document.querySelectorAll('#cartCount, .cart-count');
     const total = getCart().reduce((sum, p) => sum + (Number(p.quantity) || 1), 0);
-    cartCount.textContent = total;
+    all.forEach(el => { el.textContent = total; });
 }
 
 /* ================= OPEN / CLOSE ================= */
@@ -82,7 +97,7 @@ function renderCart() {
     if (cart.length === 0) {
         cartContent.innerHTML = `<p style="padding:2rem;text-align:center;color:#888;">Tu carrito está vacío</p>`;
         if (cartTotal) cartTotal.textContent = '$0 MXN';
-        if (cartCount) cartCount.textContent = '0';
+        updateCartCount();
         return;
     }
 
@@ -115,7 +130,7 @@ function renderCart() {
     });
 
     if (cartTotal) cartTotal.textContent = `$${total.toLocaleString()} MXN`;
-    if (cartCount) cartCount.textContent = totalItems;
+    updateCartCount();
 
     cartContent.querySelectorAll('.qty-btn.minus').forEach(btn =>
         btn.addEventListener('click', () => changeQuantity(btn.dataset.id, -1)));
@@ -129,7 +144,10 @@ function renderCart() {
 
 function changeQuantity(id, delta) {
     const cart = getCart()
-        .map(p => { if (String(p.id) === String(id)) p.quantity = (Number(p.quantity) || 1) + delta; return p; })
+        .map(p => {
+            if (String(p.id) === String(id)) p.quantity = (Number(p.quantity) || 1) + delta;
+            return p;
+        })
         .filter(p => p.quantity > 0);
     saveCart(cart);
 }
@@ -139,7 +157,6 @@ function removeFromCart(id) {
 }
 
 /* ================= CROSS-TAB SYNC ================= */
-// Solo sincroniza cambios hechos desde OTRA pestaña
 window.addEventListener('storage', (e) => {
     if (e.key === 'cart') {
         renderCart();
@@ -147,9 +164,7 @@ window.addEventListener('storage', (e) => {
     }
 });
 
-/* ================= EXPONER REFRESH PARA products.js ================= */
-// products.js llama a window._cartRefresh() tras agregar al carrito
-// así evitamos depender del evento 'storage' que no se dispara en la misma pestaña
+/* ================= EXPONER REFRESH (compatibilidad con products.js y product-detail.js) ================= */
 window._cartRefresh = () => {
     renderCart();
     updateCartCount();
@@ -157,9 +172,9 @@ window._cartRefresh = () => {
 
 /* ================= SANITIZE ON LOAD ================= */
 (function sanitizeCart() {
-    const raw = localStorage.getItem('cart');
-    if (!raw) return;
     try {
+        const raw = localStorage.getItem('cart');
+        if (!raw) return;
         const parsed = JSON.parse(raw);
         if (!Array.isArray(parsed)) { localStorage.removeItem('cart'); return; }
         const clean = parsed.filter(p => p && p.id !== undefined && p.name && Number(p.price) > 0);

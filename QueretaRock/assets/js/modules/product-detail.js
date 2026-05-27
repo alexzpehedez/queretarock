@@ -1,4 +1,4 @@
-/* ================= PRODUCT DETAIL MODULE ================= */
+/* ================= PRODUCT DETAIL MODULE — FIXED ================= */
 
 const BASE_URL = '/Proyecto_Final/QueretaRock/';
 
@@ -22,7 +22,15 @@ if (document.getElementById('productName') || document.querySelector('#productIm
         try {
             const res     = await fetch(`${BASE_URL}backend/products/getProduct.php?id=${productId}`);
             if (!res.ok) throw new Error('HTTP ' + res.status);
-            const product = await res.json();
+            const text    = await res.text();
+            let product;
+            try {
+                product = JSON.parse(text);
+            } catch {
+                console.error('Respuesta no-JSON de getProduct:', text.substring(0, 200));
+                if (productName) productName.textContent = 'Error al cargar el producto';
+                return;
+            }
 
             if (!product || !product.id) {
                 if (productName) productName.textContent = 'Producto no encontrado';
@@ -39,7 +47,9 @@ if (document.getElementById('productName') || document.querySelector('#productIm
             if (productPrice)       productPrice.textContent = `$${Number(product.price).toLocaleString()} MXN`;
             if (productDescription) productDescription.textContent = product.description || 'Guitarra de alta calidad.';
 
-            if (addToCartBtn) addToCartBtn.addEventListener('click', () => addToCart(product));
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener('click', () => addToCart(product));
+            }
 
         } catch (err) {
             console.error('Error cargando producto:', err);
@@ -48,25 +58,27 @@ if (document.getElementById('productName') || document.querySelector('#productIm
     }
 
     function addToCart(product) {
-        let cart = [];
-        try {
-            const raw = localStorage.getItem('cart');
-            cart = (raw && raw !== 'undefined') ? JSON.parse(raw) : [];
-            if (!Array.isArray(cart)) cart = [];
-        } catch { cart = []; }
-
-        const existing = cart.find(i => String(i.id) === String(product.id));
-        if (existing) {
-            existing.quantity = (Number(existing.quantity) || 1) + 1;
+        /* FIX: usar la función global de cart.js si está disponible */
+        if (typeof window.addToCartGlobal === 'function') {
+            window.addToCartGlobal(product);
         } else {
-            cart.push({ ...product, quantity: 1 });
+            /* fallback manual */
+            try {
+                const raw = localStorage.getItem('cart');
+                let cart = (raw && raw !== 'undefined') ? JSON.parse(raw) : [];
+                if (!Array.isArray(cart)) cart = [];
+                const existing = cart.find(i => String(i.id) === String(product.id));
+                if (existing) {
+                    existing.quantity = (Number(existing.quantity) || 1) + 1;
+                } else {
+                    cart.push({ ...product, quantity: 1 });
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                if (typeof window._cartRefresh === 'function') window._cartRefresh();
+            } catch (e) {
+                console.error('Error al agregar al carrito:', e);
+            }
         }
-
-        localStorage.setItem('cart', JSON.stringify(cart));
-
-        // FIX: mismo patrón que products.js
-        if (typeof window._cartRefresh === 'function') window._cartRefresh();
-
         showToast();
     }
 
